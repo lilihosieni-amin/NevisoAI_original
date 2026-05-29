@@ -37,7 +37,7 @@ export function CredentialsStep({ onChallenge }: { onChallenge: (c: Challenge) =
   return (
     <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       <div>
-        <label htmlFor="email" style={{ display: 'block', marginBottom: 6, color: 'var(--ink-2)' }}>
+        <label htmlFor="email" className="label">
           ایمیل
         </label>
         <input
@@ -51,10 +51,7 @@ export function CredentialsStep({ onChallenge }: { onChallenge: (c: Challenge) =
         />
       </div>
       <div>
-        <label
-          htmlFor="password"
-          style={{ display: 'block', marginBottom: 6, color: 'var(--ink-2)' }}
-        >
+        <label htmlFor="password" className="label">
           رمز عبور
         </label>
         <input

@@ -21,44 +21,50 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <main
-      dir="rtl"
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 24,
-        background: 'var(--slate)',
-      }}
-    >
-      <section
-        className="card"
-        style={{
-          width: '100%',
-          maxWidth: 420,
-          padding: 28,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 20,
-        }}
-      >
-        <header style={{ textAlign: 'center' }}>
-          <h1 style={{ fontSize: 24, fontWeight: 700, margin: 0 }}>پنل مدیریت نویسو</h1>
-          <p style={{ color: 'var(--ink-3)', marginTop: 6 }}>
-            {challenge ? 'کد تأیید را وارد کنید' : 'ورود مدیران'}
-          </p>
-        </header>
+    <main dir="rtl" className="auth-split">
+      <aside className="auth-brand">
+        <div className="auth-brand-mark">
+          <span className="auth-brand-dot">ن</span>
+          نویسو
+        </div>
 
-        {challenge ? (
-          <AdminOtpStep
-            challenge={challenge}
-            onVerified={onVerified}
-            onBack={() => setChallenge(null)}
-          />
-        ) : (
-          <CredentialsStep onChallenge={setChallenge} />
-        )}
+        <div>
+          <span className="chip admin-badge" style={{ marginBottom: 16 }}>
+            پنل مدیریت
+          </span>
+          <h2>ورود مدیران</h2>
+          <p>
+            دسترسی به مدیریت کاربران، پلن‌ها، پرداخت‌ها و گزارش‌ها. ورود دو‌مرحله‌ای: رمز عبور و سپس
+            کد تأیید پیامکی.
+          </p>
+        </div>
+
+        <span className="field-note" style={{ color: 'rgba(250,246,236,0.55)' }}>
+          این بخش فقط برای کارکنان مجاز است.
+        </span>
+      </aside>
+
+      <section className="auth-panel">
+        <div className="auth-card">
+          <header>
+            <h1 className="auth-title">{challenge ? 'تأیید دو‌مرحله‌ای' : 'ورود به پنل'}</h1>
+            <p className="auth-sub">
+              {challenge
+                ? 'کد تأیید ارسال‌شده به موبایل را وارد کنید'
+                : 'با ایمیل و رمز عبور وارد شوید'}
+            </p>
+          </header>
+
+          {challenge ? (
+            <AdminOtpStep
+              challenge={challenge}
+              onVerified={onVerified}
+              onBack={() => setChallenge(null)}
+            />
+          ) : (
+            <CredentialsStep onChallenge={setChallenge} />
+          )}
+        </div>
       </section>
     </main>
   );

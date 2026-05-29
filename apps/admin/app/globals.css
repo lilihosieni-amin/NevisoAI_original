@@ -122,3 +122,114 @@ body {
   background: var(--paper-2);
   color: var(--ink-2);
 }
+
+/* ── Admin auth (desktop split, slate brand) ──────────────────────────────── */
+.auth-split {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 880px) {
+  .auth-split {
+    grid-template-columns: 1fr;
+  }
+}
+.auth-brand {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 56px 48px;
+  color: var(--paper);
+  background:
+    radial-gradient(640px 360px at 85% 0%, rgba(232, 165, 61, 0.2), transparent 60%),
+    linear-gradient(160deg, #111827 0%, var(--slate) 100%);
+}
+.auth-brand::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 10px;
+  background: linear-gradient(var(--saffron), var(--saffron-deep));
+}
+.auth-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 22px;
+}
+.auth-brand-dot {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: var(--saffron);
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+  font-weight: 800;
+}
+.auth-brand h2 {
+  font: 700 30px/1.2 var(--font);
+  margin: 0 0 12px;
+}
+.auth-brand p {
+  color: rgba(250, 246, 236, 0.78);
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 36ch;
+}
+.admin-badge {
+  align-self: flex-start;
+  background: rgba(232, 165, 61, 0.16);
+  color: var(--saffron);
+  border: 1px solid rgba(232, 165, 61, 0.3);
+}
+@media (max-width: 880px) {
+  .auth-brand {
+    padding: 28px;
+  }
+  .auth-brand p {
+    display: none;
+  }
+}
+.auth-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  background: var(--paper);
+}
+.auth-card {
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.auth-title {
+  font: 700 26px/1.2 var(--font);
+  margin: 0;
+}
+.auth-sub {
+  color: var(--ink-3);
+  font-size: 14px;
+  margin: 6px 0 0;
+}
+.label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--ink-2);
+  font: 500 14px/1.4 var(--font);
+}
+.field:focus {
+  box-shadow: 0 0 0 3px var(--saffron-soft);
+}
+.otp-input {
+  text-align: center;
+  letter-spacing: 0.5em;
+  font-size: 24px;
+  font-weight: 600;
+}

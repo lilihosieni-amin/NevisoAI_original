@@ -28,7 +28,7 @@ describe('PhoneStep', () => {
     renderWith([channelsMock]);
     await screen.findByText('پیامک');
     fireEvent.change(screen.getByLabelText('شمارهٔ موبایل'), { target: { value: '12345' } });
-    fireEvent.click(screen.getByRole('button', { name: 'دریافت کد تأیید' }));
+    fireEvent.click(screen.getByRole('button', { name: 'ارسال کد' }));
     expect(await screen.findByRole('alert')).toHaveTextContent('نامعتبر');
   });
 
@@ -36,7 +36,7 @@ describe('PhoneStep', () => {
     renderWith([channelsMock]);
     await screen.findByText('پیامک');
     fireEvent.change(screen.getByLabelText('شمارهٔ موبایل'), { target: { value: '09121234567' } });
-    fireEvent.click(screen.getByRole('button', { name: 'دریافت کد تأیید' }));
+    fireEvent.click(screen.getByRole('button', { name: 'ارسال کد' }));
     expect(await screen.findByRole('alert')).toHaveTextContent('روش دریافت کد');
   });
 
@@ -53,7 +53,7 @@ describe('PhoneStep', () => {
     await screen.findByText('پیامک');
     fireEvent.change(screen.getByLabelText('شمارهٔ موبایل'), { target: { value: '09121234567' } });
     fireEvent.click(screen.getByRole('button', { name: 'پیامک' }));
-    fireEvent.click(screen.getByRole('button', { name: 'دریافت کد تأیید' }));
+    fireEvent.click(screen.getByRole('button', { name: 'ارسال کد' }));
 
     await waitFor(() => expect(received).not.toBeNull());
     expect(received!).toMatchObject({

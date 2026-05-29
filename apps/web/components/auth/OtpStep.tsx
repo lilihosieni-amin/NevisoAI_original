@@ -81,9 +81,8 @@ export function OtpStep({
         autoComplete="one-time-code"
         dir="ltr"
         maxLength={6}
-        className="field"
-        style={{ textAlign: 'center', letterSpacing: '0.4em', fontSize: 22 }}
-        placeholder="------"
+        className="field otp-input"
+        placeholder="••••••"
         value={code}
         onChange={(e) => setCode(e.target.value)}
       />

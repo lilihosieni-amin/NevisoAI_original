@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { NotebookArt, NotebookIcon } from '@/components/auth/NotebookArt';
 import { OtpStep } from '@/components/auth/OtpStep';
 import { PhoneStep, type OtpSent } from '@/components/auth/PhoneStep';
 import { useAuth } from '@/lib/auth-context';
@@ -11,7 +12,6 @@ export default function LoginPage() {
   const { user, loading, setSession } = useAuth();
   const [sent, setSent] = useState<OtpSent | null>(null);
 
-  // Already signed in → go to the dashboard.
   useEffect(() => {
     if (!loading && user) router.replace('/dashboard');
   }, [loading, user, router]);
@@ -22,42 +22,39 @@ export default function LoginPage() {
   };
 
   return (
-    <main
-      dir="rtl"
-      className="paper-texture"
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 24,
-        background: 'var(--paper)',
-      }}
-    >
-      <section
-        className="card"
-        style={{
-          width: '100%',
-          maxWidth: 420,
-          padding: 28,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 20,
-        }}
-      >
-        <header style={{ textAlign: 'center' }}>
-          <h1 style={{ fontSize: 28, fontWeight: 700, margin: 0, color: 'var(--ink)' }}>نویسو</h1>
-          <p style={{ color: 'var(--ink-3)', marginTop: 6 }}>
-            {sent ? 'کد تأیید را وارد کنید' : 'ورود یا ثبت‌نام با شمارهٔ موبایل'}
-          </p>
-        </header>
+    <main dir="rtl" className="auth-split">
+      {/* Form side — first in DOM → right column in RTL */}
+      <section className="auth-panel">
+        <div className="auth-card">
+          <span className="auth-logo">
+            نویسو
+            <NotebookIcon />
+          </span>
 
-        {sent ? (
-          <OtpStep sent={sent} onVerified={onVerified} onChangeMobile={() => setSent(null)} />
-        ) : (
-          <PhoneStep onSent={setSent} />
-        )}
+          {sent ? (
+            <OtpStep sent={sent} onVerified={onVerified} onChangeMobile={() => setSent(null)} />
+          ) : (
+            <PhoneStep onSent={setSent} />
+          )}
+        </div>
       </section>
+
+      {/* Brand side — second in DOM → left column in RTL */}
+      <aside className="auth-brand">
+        <div className="auth-brand-mark">
+          <span className="auth-brand-dot">ن</span>
+          نویسو
+        </div>
+
+        <div className="nb-stage">
+          <NotebookArt />
+        </div>
+
+        <blockquote className="auth-quote">
+          «از وقتی نویسو دارم، دیگه شب امتحان دنبال جزوهٔ بقیه نمی‌گردم.»
+          <cite>— مریم، دانشجوی پزشکی ۱۴۰۳</cite>
+        </blockquote>
+      </aside>
     </main>
   );
 }

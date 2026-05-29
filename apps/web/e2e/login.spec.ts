@@ -68,7 +68,7 @@ test('user logs in via OTP and lands on the dashboard with free credits', async 
 
   await page.getByLabel('شمارهٔ موبایل').fill('09121234567');
   await page.getByRole('button', { name: 'پیامک' }).click();
-  await page.getByRole('button', { name: 'دریافت کد تأیید' }).click();
+  await page.getByRole('button', { name: 'ارسال کد' }).click();
 
   // OTP step.
   const codeInput = page.getByLabel('کد تأیید');
@@ -108,7 +108,7 @@ test('invalid OTP shows a Persian inline error and no leak', async ({ page }) =>
   await expect(page.getByRole('button', { name: 'بله' })).toHaveCount(0);
 
   await page.getByLabel('شمارهٔ موبایل').fill('09121234567');
-  await page.getByRole('button', { name: 'دریافت کد تأیید' }).click();
+  await page.getByRole('button', { name: 'ارسال کد' }).click();
   await page.getByLabel('کد تأیید').fill('000000');
   await page.getByRole('button', { name: 'ورود' }).click();
 

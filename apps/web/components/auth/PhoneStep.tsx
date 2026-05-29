@@ -3,7 +3,7 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { useState } from 'react';
 import { extractErrorCode, mapErrorCode } from '@/lib/error-map';
-import { isValidIranMobile, normalizeIranMobile, toPersianDigits } from '@/lib/mobile';
+import { isValidIranMobile, normalizeIranMobile } from '@/lib/mobile';
 import { OTP_CHANNELS, REQUEST_OTP } from '@/lib/operations';
 
 type Channel = 'SMS' | 'BALE';
@@ -15,10 +15,20 @@ export interface OtpSent {
   requestedChannel: Channel | null;
 }
 
+function IranFlag() {
+  return (
+    <svg width="20" height="14" viewBox="0 0 20 14" aria-hidden="true" style={{ borderRadius: 2 }}>
+      <rect width="20" height="14" fill="#fff" />
+      <rect width="20" height="4.67" fill="#239f40" />
+      <rect y="9.33" width="20" height="4.67" fill="#da0000" />
+    </svg>
+  );
+}
+
 /**
- * Login step 1 — Iranian-mobile input + channel picker (ARD §5.2). The picker
- * is shown only when the admin enabled both channels (`otpChannels` returns
- * two). Calls `requestOtp` and hands the sent channel up to the OTP step.
+ * Login step 1 (Ui_sample §02) — greeting, mobile input with a +۹۸ prefix, a
+ * method toggle (OTP now / password later), and — when the admin enabled both
+ * OTP channels — a پیامک/بله delivery picker. Calls `requestOtp`.
  */
 export function PhoneStep({ onSent }: { onSent: (sent: OtpSent) => void }) {
   const [mobile, setMobile] = useState('');
@@ -64,35 +74,60 @@ export function PhoneStep({ onSent }: { onSent: (sent: OtpSent) => void }) {
   const serverError = error ? mapErrorCode(extractErrorCode(error)) : null;
 
   return (
-    <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <div>
-        <label
-          htmlFor="mobile"
-          style={{ display: 'block', marginBottom: 6, color: 'var(--ink-2)' }}
+    <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+      <header>
+        <h1 className="auth-title">سلام دانشجو 👋</h1>
+        <p className="auth-sub">
+          با شمارهٔ موبایلت وارد شو؛ اولین ورود، اعتبار رایگان هدیه می‌گیری.
+        </p>
+      </header>
+
+      {/* Method toggle — OTP now; password can be set later from the profile */}
+      <div className="seg" role="tablist" aria-label="روش ورود">
+        <button type="button" className="seg-btn active" aria-selected="true">
+          کد یک‌بار مصرف
+        </button>
+        <button
+          type="button"
+          className="seg-btn"
+          disabled
+          title="پس از ورود از پروفایل فعال می‌شود"
         >
+          رمز عبور · غیرفعال
+        </button>
+      </div>
+
+      <div>
+        <label htmlFor="mobile" className="label">
           شمارهٔ موبایل
         </label>
-        <input
-          id="mobile"
-          name="mobile"
-          inputMode="numeric"
-          autoComplete="tel"
-          dir="ltr"
-          className="field"
-          placeholder="۰۹۱۲۳۴۵۶۷۸۹"
-          value={mobile}
-          onChange={(e) => setMobile(e.target.value)}
-          aria-invalid={Boolean(localError)}
-        />
+        <div className="phone-field">
+          <span className="phone-prefix">
+            <IranFlag />
+            ۹۸+
+          </span>
+          <input
+            id="mobile"
+            name="mobile"
+            inputMode="numeric"
+            autoComplete="tel"
+            dir="ltr"
+            className="phone-input"
+            placeholder="۹۱۲ ۳۴۵ ۶۷۸۹"
+            value={mobile}
+            onChange={(e) => setMobile(e.target.value)}
+            aria-invalid={Boolean(localError)}
+          />
+        </div>
       </div>
 
       {showPicker && (
-        <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
-          <legend style={{ marginBottom: 6, color: 'var(--ink-2)' }}>روش دریافت کد</legend>
-          <div style={{ display: 'flex', gap: 8 }}>
+        <div>
+          <span className="label">ارسال کد از طریق</span>
+          <div className="chan-row">
             <button
               type="button"
-              className={`btn ${channel === 'SMS' ? 'btn-accent' : 'btn-outline'}`}
+              className={`chan-btn ${channel === 'SMS' ? 'active' : ''}`}
               aria-pressed={channel === 'SMS'}
               onClick={() => setChannel('SMS')}
             >
@@ -100,14 +135,14 @@ export function PhoneStep({ onSent }: { onSent: (sent: OtpSent) => void }) {
             </button>
             <button
               type="button"
-              className={`btn ${channel === 'BALE' ? 'btn-accent' : 'btn-outline'}`}
+              className={`chan-btn ${channel === 'BALE' ? 'active' : ''}`}
               aria-pressed={channel === 'BALE'}
               onClick={() => setChannel('BALE')}
             >
               بله
             </button>
           </div>
-        </fieldset>
+        </div>
       )}
 
       {(localError || serverError) && (
@@ -116,12 +151,12 @@ export function PhoneStep({ onSent }: { onSent: (sent: OtpSent) => void }) {
         </p>
       )}
 
-      <button type="submit" className="btn btn-accent btn-block" disabled={loading}>
-        {loading ? 'در حال ارسال…' : 'دریافت کد تأیید'}
+      <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
+        {loading ? 'در حال ارسال…' : 'ارسال کد'}
       </button>
 
-      <p className="field-note">
-        کد تأیید به این شماره ارسال می‌شود: {toPersianDigits(mobile || '')}
+      <p className="auth-foot">
+        با ورود، <a href="#">قوانین</a> و <a href="#">حریم خصوصی</a> را پذیرفته‌ای.
       </p>
     </form>
   );

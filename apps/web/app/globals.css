@@ -166,3 +166,280 @@ body {
   color: var(--ink-3);
   font: 400 13px/1.5 var(--font);
 }
+
+/* ── Auth screen (sample §02 — "Calm Academic", desktop split) ────────────── */
+.auth-split {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* DOM order: form first → right in RTL; brand → left */
+}
+@media (max-width: 880px) {
+  .auth-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Form side (right in RTL) */
+.auth-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 32px;
+  background: var(--paper);
+}
+.auth-card {
+  width: 100%;
+  max-width: 410px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.auth-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: 700 19px/1 var(--font);
+  color: var(--ink);
+  align-self: flex-end;
+}
+.auth-title {
+  font: 700 30px/1.2 var(--font);
+  margin: 4px 0 0;
+}
+.auth-sub {
+  color: var(--ink-3);
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 8px 0 0;
+}
+.label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--ink-2);
+  font: 600 13px/1.4 var(--font);
+}
+
+/* Phone input with a +۹۸ flag prefix */
+.phone-field {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid var(--paper-edge);
+  border-radius: 12px;
+  background: var(--card);
+  overflow: hidden;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.phone-field:focus-within {
+  border-color: var(--saffron);
+  box-shadow: 0 0 0 3px var(--saffron-soft);
+}
+.phone-prefix {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  background: var(--paper-2);
+  color: var(--ink-2);
+  font-weight: 700;
+  border-inline-start: 1px solid var(--paper-edge);
+}
+.phone-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 13px 14px;
+  font: 500 16px/1.4 var(--font);
+  color: var(--ink);
+  letter-spacing: 0.08em;
+}
+
+/* Segmented method toggle (OTP active / password optional-later) */
+.seg {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  background: var(--paper-2);
+  padding: 5px;
+  border-radius: 14px;
+}
+.seg-btn {
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font: 600 14px/1.2 var(--font);
+  color: var(--ink-3);
+  background: transparent;
+  cursor: pointer;
+}
+.seg-btn.active {
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: 0 1px 2px rgba(31, 27, 18, 0.06);
+}
+.seg-btn:disabled {
+  color: var(--ink-4);
+  cursor: not-allowed;
+}
+
+/* OTP delivery channel chips (پیامک / بله) — shown only when both enabled */
+.chan-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.chan-btn {
+  border: 1px solid var(--paper-edge);
+  background: var(--card);
+  border-radius: 999px;
+  padding: 7px 16px;
+  font: 600 13px/1 var(--font);
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.chan-btn.active {
+  background: var(--saffron-soft);
+  border-color: var(--saffron);
+  color: var(--saffron-deep);
+}
+
+.field {
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.field:focus {
+  box-shadow: 0 0 0 3px var(--saffron-soft);
+}
+.otp-input {
+  text-align: center;
+  letter-spacing: 0.5em;
+  font-size: 26px;
+  font-weight: 600;
+  padding: 14px;
+}
+
+.auth-foot {
+  color: var(--ink-3);
+  font-size: 13px;
+  text-align: center;
+}
+.auth-foot a {
+  color: var(--saffron-deep);
+  text-decoration: none;
+}
+
+/* Brand side (left in RTL) — dark panel, notebook art + testimonial */
+.auth-brand {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 48px;
+  color: var(--paper);
+  background:
+    radial-gradient(720px 420px at 50% -12%, rgba(232, 165, 61, 0.16), transparent 60%),
+    linear-gradient(165deg, #1b2330 0%, var(--slate) 100%);
+}
+@media (max-width: 880px) {
+  .auth-brand {
+    padding: 28px;
+    min-height: 220px;
+  }
+}
+.auth-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font: 700 20px/1 var(--font);
+}
+.auth-brand-dot {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: var(--saffron);
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+  font-weight: 800;
+}
+.auth-quote {
+  text-align: center;
+  font: 500 17px/1.9 var(--font);
+  color: rgba(250, 246, 236, 0.95);
+  margin: 0;
+}
+.auth-quote cite {
+  display: block;
+  margin-top: 10px;
+  color: var(--saffron);
+  font-size: 13px;
+  font-style: normal;
+}
+@media (max-width: 880px) {
+  .auth-quote {
+    display: none;
+  }
+}
+
+/* Skeuomorphic notebook illustration */
+.nb-stage {
+  flex: 1;
+  display: grid;
+  place-items: center;
+}
+.nb-art {
+  position: relative;
+  width: 300px;
+  height: 290px;
+}
+@media (max-width: 880px) {
+  .nb-art {
+    transform: scale(0.7);
+  }
+}
+.nb {
+  position: absolute;
+  width: 196px;
+  height: 252px;
+  border-radius: 8px 16px 16px 8px;
+  background: #fff;
+  box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.5);
+}
+.nb-back {
+  inset-inline-end: 24px;
+  top: 6px;
+  transform: rotate(7deg);
+  background: var(--card-soft);
+}
+.nb-front {
+  inset-inline-end: 78px;
+  top: 34px;
+  transform: rotate(-6deg);
+  padding: 20px 22px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 24px,
+    rgba(120, 95, 50, 0.1) 24px 25px
+  );
+}
+.nb-spine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  inset-inline-end: 0;
+  width: 16px;
+  border-radius: 0 8px 8px 0;
+}
+.nb-plus {
+  position: absolute;
+  inset-inline-start: 26px;
+  bottom: 28px;
+  font: 700 34px/1 var(--font);
+  color: var(--saffron);
+}
