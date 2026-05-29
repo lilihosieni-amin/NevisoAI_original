@@ -1,0 +1,45 @@
+{
+  "name": "neviso",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Neviso (nevisoai.ir) — Persian AI note-taking platform monorepo",
+  "engines": {
+    "node": ">=18.17.0"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "db:generate": "npm run generate --workspace=@neviso/db",
+    "db:migrate": "npm run migrate:dev --workspace=@neviso/db",
+    "dev": "npm-run-all --parallel dev:api dev:worker dev:web dev:admin",
+    "dev:api": "npm run dev --workspace=@neviso/api",
+    "dev:worker": "npm run dev --workspace=@neviso/worker",
+    "dev:web": "npm run dev --workspace=@neviso/web",
+    "dev:admin": "npm run dev --workspace=@neviso/admin",
+    "build": "npm run db:generate && npm-run-all --serial build:packages build:api build:worker build:web build:admin",
+    "build:packages": "npm run build --workspace=@neviso/types",
+    "build:api": "npm run build --workspace=@neviso/api",
+    "build:worker": "npm run build --workspace=@neviso/worker",
+    "build:web": "npm run build --workspace=@neviso/web",
+    "build:admin": "npm run build --workspace=@neviso/admin",
+    "lint": "npm run lint --workspaces --if-present",
+    "typecheck": "npm run db:generate && npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "test:e2e": "npm run test:e2e --workspace=@neviso/web && npm run test:e2e --workspace=@neviso/admin",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "check:no-cdn": "node scripts/check-no-foreign-cdn.mjs"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.3.3",
+    "typescript": "^5.4.5"
+  }
+}

@@ -1,0 +1,2166 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)https://doc.sms-webservice.com/#Send -->
+<html lang="en" dir="rtl"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Documentation</title>
+        <link rel="stylesheet" href="./Documentation_files/bootstrap.rtl.min.css">
+        <link rel="stylesheet" href="./Documentation_files/font.css">
+        <link rel="stylesheet" href="./Documentation_files/main.css">
+        <!-- <link rel="stylesheet" href="./assets/css/prism.css"> -->
+        <link rel="stylesheet" href="./Documentation_files/bootstrap-icons.css">
+        <!-- <link rel="stylesheet" href="./assets/css/highlight.min.css"> -->
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/dark.min.css"> -->
+		 <link rel="stylesheet" href="./Documentation_files/dark.css">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-md bg-purple">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="https://doc.sms-webservice.com/index.html">وبسرویس ارسال پیامک</a>
+                <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto mb-2 mb-md-0">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="http://api.sms-webservice.com/swagger/ui/index#/">لینک Swagger</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="http://api.sms-webservice.com/api/V3/">لینک وبسرویس </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="tel:02174912">پشتیبانی</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://doc.sms-webservice.com/code-list.html">لیست خطاها</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://doc.sms-webservice.com/sms-status.html">وضعیت  پیامک ها</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <a class="btn btn-primary d-md-none d-block fixed-bottom" data-bs-toggle="offcanvas" href="https://doc.sms-webservice.com/#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                    مشاهده منو
+                </a>
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">همه ی متد ها</h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <div>
+                            <nav class="TableOfContents">
+                                <ul>
+                                    <input onchange="activeTab(&#39;Send&#39;)" type="radio" class="menu-item" name="tab" id="">
+                                    <label data-bs-dismiss="offcanvas" for="inputSend">
+                                        ارسال یک متن به
+                  یک یا چند شماره با متد Get
+                                    </label>
+                                    <input onchange="activeTab(&#39;SendBulk&#39;)" type="radio" class="menu-item" name="tab" id="">
+                                    <label data-bs-dismiss="offcanvas" for="inputSendBulk">
+                                        ارسال یک متن
+                  به یک یا چند شماره با متد post
+                                    </label>
+                                    <input onchange="activeTab(&#39;SendMultiple&#39;)" type="radio" class="menu-item" name="tab" id="">
+                                    <label data-bs-dismiss="offcanvas" for="inputSendMultiple">
+                                        ارسال
+                  چند متن به چند گیرنده
+                                    </label>
+                                    <input onchange="activeTab(&#39;SendTokenSingle&#39;)" type="radio" class="menu-item" name="tab" id="">
+                                    <label data-bs-dismiss="offcanvas" for="inputSendTokenSingle">
+                                        ارسال
+                  به یک شماره با استفاده از الگوی تعریف
+                  شده
+                                    </label>
+                                    <input onchange="activeTab(&#39;SendTokenMulti&#39;)" type="radio" class="menu-item" name="tab" id="">
+                                    <label data-bs-dismiss="offcanvas" for="inputSendTokenMulti">
+                                        ارسال
+                  یک الگو با متن های مختلف به چند
+                  شماره
+                                    </label>
+                                    <input onchange="activeTab(&#39;TokenList&#39;)" type="radio" class="menu-item" name="tab" id="">
+                                    <label data-bs-dismiss="offcanvas" for="inputTokenList">
+                                        دریافت لیست
+                  الگوهای تعریف شده در پنل
+                                    </label>
+                                    <input onchange="activeTab(&#39;StatusById&#39;)" type="radio" class="menu-item" name="tab" id="">
+                                    <label data-bs-dismiss="offcanvas" for="inputStatusById">
+                                        دریافت
+                  وضعیت پیام های ارسالی با شناسه پیامک
+                                    </label>
+                                    <input onchange="activeTab(&#39;StatusByTraceId&#39;)" type="radio" class="menu-item" name="tab" id="">
+                                    <label data-bs-dismiss="offcanvas" for="inputStatusByTraceId">
+                                        دریافت
+                  وضعیت پیام های ارسالی با شناسه
+                  پنل
+                                    </label>
+                                    <input onchange="activeTab(&#39;AccountInfo&#39;)" type="radio" class="menu-item" name="tab" id="">
+                                    <label data-bs-dismiss="offcanvas" for="inputAccountInfo">
+                                        دریافت
+                  مقدار اعتبار و لیست خطوط ارسال کننده فعال در
+                  پنل
+                                    </label>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-first d-none d-md-block">
+                    <div class=" sticky-top pt-3">
+                        <nav class="TableOfContents">
+                            <ul>
+                                <input onchange="activeTab(&#39;Send&#39;)" type="radio" class="menu-item" name="tab" id="inputSend">
+                                <label for="inputSend">ارسال یک متن به یک یا چند شماره با متد Get</label>
+                                <input onchange="activeTab(&#39;SendBulk&#39;)" type="radio" class="menu-item" name="tab" id="inputSendBulk">
+                                <label for="inputSendBulk">
+                                    ارسال یک متن به
+                یک یا چند شماره با متد post
+                                </label>
+                                <input onchange="activeTab(&#39;SendMultiple&#39;)" type="radio" class="menu-item" name="tab" id="inputSendMultiple">
+                                <label for="inputSendMultiple">
+                                    ارسال
+                چند متن به چند گیرنده
+                                </label>
+                                <input onchange="activeTab(&#39;SendTokenSingle&#39;)" type="radio" class="menu-item" name="tab" id="inputSendTokenSingle">
+                                <label for="inputSendTokenSingle">
+                                    ارسال
+                به یک شماره با استفاده از الگوی تعریف
+                شده
+                                </label>
+                                <input onchange="activeTab(&#39;SendTokenMulti&#39;)" type="radio" class="menu-item" name="tab" id="inputSendTokenMulti">
+                                <label for="inputSendTokenMulti">
+                                    ارسال
+                یک الگو با متن های مختلف به چند
+                شماره
+                                </label>
+                                <input onchange="activeTab(&#39;TokenList&#39;)" type="radio" class="menu-item" name="tab" id="inputTokenList">
+                                <label for="inputTokenList">
+                                    دریافت لیست
+                الگوهای تعریف شده در پنل
+                                </label>
+                                <input onchange="activeTab(&#39;StatusById&#39;)" type="radio" class="menu-item" name="tab" id="inputStatusById">
+                                <label for="inputStatusById">
+                                    دریافت وضعیت
+                پیام های ارسالی با شناسه پیامک
+                                </label>
+                                <input onchange="activeTab(&#39;StatusByTraceId&#39;)" type="radio" class="menu-item" name="tab" id="inputStatusByTraceId">
+                                <label for="inputStatusByTraceId">
+                                    دریافت
+                وضعیت پیام های ارسالی با شناسه
+                پنل
+                                </label>
+                                <input onchange="activeTab(&#39;AccountInfo&#39;)" type="radio" class="menu-item" name="tab" id="inputAccountInfo">
+                                <label for="inputAccountInfo">
+                                    دریافت
+                مقدار اعتبار و لیست خطوط ارسال کننده فعال در
+                پنل
+                                </label>
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <!-- //ردیف محتوا -->
+                <div class="col-md-10">
+                    <div class="container-fluid p-0" id="content-an-code">
+                        <!-- متد اول -->
+                        <div class="row method-content" id="Send">
+                            <div class="col-md-7 pb-5 col-second p-3">
+                                <div class="container">
+                                    <div class="row">
+                                        <h3>متد ارسال یک متن به یک یا چند شماره با متد Get (Send )</h3>
+                                        <p>
+                                            این متد مربوط به ارسال پیامک می باشد ، این متد این قابلیت
+                    را دارد که در یک بار فراخوانی به حد اکثر
+                    99 شماره پیام ارسال نماید، به این معنی که نیازی نیست به
+                    ازای هر شماره یک بار متد را فراخوانی نمائید،
+                    می توانید شماره ها را به دسته های 99 تایی تقسیم نموده و هر
+                    دسته را توسط یک آرایه به این متد ارسال
+                    نمائید.
+                                        </p>
+                                        <div class="container">
+                                            <div class="row text-end method-box p-2 py-3">
+                                                <button class="btn btn-dark btn-sm copy-button in-link" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <p class="webservice-link pb-sm-0 pb-5 get-method m-0">
+                                                    https://api.sms-webservice.com/api/V3/Send
+                                                </p>
+                                            </div>
+                                            <br>
+                                            <h3>پارامتر های کوئری</h3>
+                                            <div class="row text-center method-box mt-3 p-2
+                        collapsible" data-bs-toggle="collapse" data-bs-target="#onecollapseone" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-6">کلید اختصاصی هر کاربر</div>
+                                                <div class="col-6 "> ApiKey
+                                                    <span class="type-param">
+                                                        STRING
+                                                    </span>
+                                                    <span class="required">
+                                                        Required
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2 content" id="onecollapseone">
+                                                کلید اختصاصی هر کاربر که در سامانه ایجاد می شود و شناسه
+                      کاربر برای دسترسی به پنل می باشد
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#onecollapsetwo" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-6">متن پیامک</div>
+                                                <div class="col-6 ">Text
+                                                    <span class="type-param">
+                                                        STRING
+                                                    </span>
+                                                    <span class="required">
+                                                        Required
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="onecollapsetwo">
+                                                هر پیامک انگلیسی 140حرف و هر پیامک فارسی نصف آن یعنی 70
+                      حرف می باشد. (حتی ورود ی ک حرف فارسی باعث
+                      فارسی شدن کل پیام می شود) با گذر از صفحه اول از ظرفیت هر
+                      پیامک انگلیسی7 حرف و از ظرفیت هر پیامک
+                      فارسی 3 حرف برای اتصال بین صفحات کاسته می شود ، یعنی در
+                      صورتی که پیامک ما از یک صفحه تجاوز کرد
+                      ظرفیت تمامی صفحات از جمله صفحه اول کسر می شود (نحوه
+                      تشخیص تعداد صفحه در نمونه کد ها(
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#onecollapsethree" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-6">شماره ارسال کننده</div>
+                                                <div class="col-6 ">Sender
+                                                    <span class="type-param">
+                                                        INTEGER(INT64)
+                                                    </span>
+                                                    <span class="required">
+                                                        Required
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="onecollapsethree">
+                                                شماره ای است که با یکی از عدد های 3000، 5000 و ... شروع
+                      می شود وروی گوشی گیرنده به عنوان فرستنده
+                      پیام نمایش داده می شود.
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#onecollapsefour" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-6">شماره های دریافت کننده</div>
+                                                <div class="col-6 ">Recipients
+                                                    <span class="type-param">
+                                                        ARRAY
+                          Of STRING
+                                                    </span>
+                                                    <span class="required"> Required</span>
+                                                    <i class="bi
+                            bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="onecollapsefour">
+                                                آرایه ای از نوع String که حد اکثر شامل 99 شماره است .
+                      شماره های وارد شده باید با 09 یا 989 + شروع شود .
+                                            </div>
+                                            <br>
+                                            <!-- ---------------خروجی ها--------------- -->
+                                            <div class="row mt-3">
+                                                <div class="col-6">
+                                                    <h3>مقادیر موجود در فیلد Result</h3>
+                                                </div>
+                                                <div class="col-6 text-end px-4 pos-relative d-flex
+                          align-items-center ">
+                                                    <p class="response-text">200
+                                                        <span class="type-param">
+                                                            OBJECT
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#onecollapsefive" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">id
+                                                    <span class="type-param">
+                                                        LONG
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="onecollapsefive">
+                                                شناسه پیام ارسالی که امکان پیگیری وضعیت پیام با استفاده
+                      از آن وجود دارد
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#onecollapsesix" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">userTraceId
+                                                    <span class="type-param">LONG</span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="onecollapsesix">
+                                                کاربر می تواند برای پیام های ارسالی شناسه ای تعریف و آن
+                      را برای پیگیری های بیشتر به سامانه ارسال
+                      نماید
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 pb-5 col-third">
+                                <div class="container">
+                                    <div class="row p-3">
+                                        <h3 class="text-light">کد آماده</h3>
+                                        <select name="codeType" id="1_codeType" onchange="showCode(1)">
+                                            <option value="1_php">PHP</option>
+                                            <option value="1_csharp">C#</option>
+                                            <option value="1_java">JAVA</option>
+                                            <option value="1_js">PYTHON</option>
+                                        </select>
+                                        <div class="code-box container bg-inside-code rounded mt-3
+                      text-end text-light p-4 text-small">
+                                            <pre id="1_php" class=" 1_code active">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-php line-numbers hljs">
+<span class="hljs-variable">$curl</span> = <span class="hljs-title function_ invoke__">curl_init</span>();
+
+<span class="hljs-title function_ invoke__">curl_setopt_array</span>(<span class="hljs-variable">$curl</span>, <span class="hljs-keyword">array</span>(
+  CURLOPT_URL =&gt; <span class="hljs-string">'http://api.sms-webservice.com/api/V3/Send?ApiKey=123456&amp;Text=test&amp;Sender=123654&amp;Recipients=9121112222'</span>,
+  CURLOPT_RETURNTRANSFER =&gt; <span class="hljs-literal">true</span>,
+  CURLOPT_ENCODING =&gt; <span class="hljs-string">''</span>,
+  CURLOPT_MAXREDIRS =&gt; <span class="hljs-number">10</span>,
+  CURLOPT_TIMEOUT =&gt; <span class="hljs-number">0</span>,
+  CURLOPT_FOLLOWLOCATION =&gt; <span class="hljs-literal">true</span>,
+  CURLOPT_HTTP_VERSION =&gt; CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST =&gt; <span class="hljs-string">'GET'</span>,
+));
+
+<span class="hljs-variable">$response</span> = <span class="hljs-title function_ invoke__">curl_exec</span>(<span class="hljs-variable">$curl</span>);
+
+<span class="hljs-title function_ invoke__">curl_close</span>(<span class="hljs-variable">$curl</span>);
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$response</span>;
+                                                </code>
+                                            </pre>
+                                            <pre id="1_csharp" class=" 1_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-csharp line-numbers hljs">
+<span class="hljs-keyword">var</span> client = <span class="hljs-keyword">new</span> RestClient(<span class="hljs-string">"http://api.sms-webservice.com/api/V3/Send?ApiKey=123456&amp;Text=test&amp;Sender=123654&amp;Recipients=9121112222"</span>);
+client.Timeout = <span class="hljs-number">-1</span>;
+<span class="hljs-keyword">var</span> request = <span class="hljs-keyword">new</span> RestRequest(Method.GET);
+IRestResponse response = client.Execute(request);
+Console.WriteLine(response.Content);
+                                                </code>
+                                            </pre>
+                                            <pre id="1_java" class=" 1_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-java line-numbers hljs">
+<span class="hljs-type">OkHttpClient</span> <span class="hljs-variable">client</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OkHttpClient</span>().newBuilder()
+.build();
+<span class="hljs-type">MediaType</span> <span class="hljs-variable">mediaType</span> <span class="hljs-operator">=</span> MediaType.parse(<span class="hljs-string">"text/plain"</span>);
+<span class="hljs-type">RequestBody</span> <span class="hljs-variable">body</span> <span class="hljs-operator">=</span> RequestBody.create(mediaType, <span class="hljs-string">""</span>);
+<span class="hljs-type">Request</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Request</span>.Builder()
+.url(<span class="hljs-string">"http://api.sms-webservice.com/api/V3/Send?ApiKey=123456&amp;Text=test&amp;Sender=123654&amp;Recipients=9121112222"</span>)
+.method(<span class="hljs-string">"GET"</span>, body)
+.build();
+<span class="hljs-type">Response</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> client.newCall(request).execute();
+                                                </code>
+                                            </pre>
+                                            <pre id="1_js" class=" 1_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-py line-numbers hljs language-python">
+<span class="hljs-keyword">import</span> requests
+
+api_key = <span class="hljs-string">"your_api_key"</span>
+text = <span class="hljs-string">"your_message"</span>
+sender = <span class="hljs-string">"your_sender"</span>
+recipient = <span class="hljs-string">"recipient_phone_number"</span>
+
+url = <span class="hljs-string">f"https://api.sms-webservice.com/api/V3/Send?ApiKey=<span class="hljs-subst">{api_key}</span>&amp;Text=<span class="hljs-subst">{text}</span>&amp;Sender=<span class="hljs-subst">{sender}</span>&amp;Recipients=<span class="hljs-subst">{recipient}</span>"</span>
+
+payload = {}
+headers = {}
+
+<span class="hljs-keyword">try</span>:
+    response = requests.get(url, headers=headers, data=payload)
+    response.raise_for_status()
+    <span class="hljs-built_in">print</span>(response.text)
+<span class="hljs-keyword">except</span> requests.exceptions.HTTPError <span class="hljs-keyword">as</span> err:
+    <span class="hljs-built_in">print</span>(err)
+
+                                                </code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- متد دوم -->
+                        <div class="row method-content" id="SendBulk">
+                            <div class="col-md-7 pb-5 col-second p-3">
+                                <div class="container">
+                                    <div class="row">
+                                        <h3>
+                                            متد ارسال یک متن به یک یا چند شماره با متد post
+                    (SendBulk )
+                                        </h3>
+                                        <p>
+                                            این متد مربوط به ارسال پیامک می باشد ، این متد این قابلیت
+                    را دارد که در یک بار فراخوانی به حد اکثر
+                    99 شماره پیام ارسال نماید، به این معنی که نیازی نیست به
+                    ازای هر شماره یک بار متد را فراخوانی نمائید،
+                    می توانید شماره ها را به دسته های 99 تایی تقسیم نموده و هر
+                    دسته را توسط یک آرایه شامل شماره دریافت
+                    کننده و کد پیگیری به این متد ارسال نمائید.
+                                        </p>
+                                        <p>
+                                            این متد بصورت post فراخوانی می شود و پارامترهای ورودی در
+                    بدنه درخواست ارسال می شوند.
+                                        </p>
+                                        <div class="container">
+                                            <div class="row text-end method-box p-2 py-3">
+                                                <button class="btn btn-dark btn-sm copy-button in-link" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <p class="webservice-link pb-sm-0 pb-5 post-method m-0">
+                                                    https://api.sms-webservice.com/api/V3/SendBulk
+                                                </p>
+                                            </div>
+                                            <br>
+                                            <h3>پارامتر های کوئری</h3>
+                                            <div class="row text-center method-box mt-3 p-2
+                        collapsible" data-bs-toggle="collapse" data-bs-target="#twocollapseone" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-6">کلید اختصاصی هر کاربر</div>
+                                                <div class="col-6 "> ApiKey
+                                                    <span class="type-param">
+                                                        STRING
+                                                    </span>
+                                                    <span class="required">
+                                                        Required
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2 content" id="twocollapseone">
+                                                کلید اختصاصی هر کاربر که در سامانه ایجاد می شود و شناسه
+                      کاربر برای دسترسی به پنل می باشد
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#twocollapsetwo" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-6">متن پیامک</div>
+                                                <div class="col-6 ">Text
+                                                    <span class="type-param">
+                                                        STRING
+                                                    </span>
+                                                    <span class="required">
+                                                        Required
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="twocollapsetwo">
+                                                هر پیامک انگلیسی 140حرف و هر پیامک فارسی نصف آن یعنی 70
+                      حرف می باشد. (حتی ورود ی ک حرف فارسی باعث
+                      فارسی شدن کل پیام می شود) با گذر از صفحه اول از ظرفیت هر
+                      پیامک انگلیسی7 حرف و از ظرفیت هر پیامک
+                      فارسی 3 حرف برای اتصال بین صفحات کاسته می شود ، یعنی در
+                      صورتی که پیامک ما از یک صفحه تجاوز کرد
+                      ظرفیت تمامی صفحات از جمله صفحه اول کسر می شود (نحوه
+                      تشخیص تعداد صفحه در نمونه کد ها(
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#twocollapsethree" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-6">شماره ارسال کننده</div>
+                                                <div class="col-6 ">Sender
+                                                    <span class="type-param">
+                                                        INTEGER(INT64)
+                                                    </span>
+                                                    <span class="required">
+                                                        Required
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="twocollapsethree">
+                                                شماره ای است که با یکی از عدد های 3000، 5000 و ... شروع
+                      می شود وروی گوشی گیرنده به عنوان فرستنده
+                      پیام نمایش داده می شود.
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#twocollapsefour" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-6">شماره های دریافت کننده</div>
+                                                <div class="col-6 ">Recipients
+                                                    <span class="type-param">
+                                                        ARRAY
+                          Of STRING
+                                                    </span>
+                                                    <span class="required"> Required</span>
+                                                    <i class="bi
+                            bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="twocollapsefour">
+                                                آرایه ای از نوع String که حد اکثر شامل 99 شماره است .
+                      شماره های وارد شده باید با 09 یا 989 + شروع شود .
+                                            </div>
+                                            <br>
+                                            <!-- ---------------خروجی ها--------------- -->
+                                            <div class="row mt-3">
+                                                <div class="col-6">
+                                                    <h3>مقادیر موجود در فیلد Result</h3>
+                                                </div>
+                                                <div class="col-6 text-end px-4 pos-relative d-flex
+                          align-items-center ">
+                                                    <p class="response-text">200
+                                                        <span class="type-param">
+                                                            OBJECT
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <p>
+                                                </p><p>خروجی این متد نیز کاملا شبیه متد قبل می باشد</p>
+                                            <p></p>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#twocollapsefive" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">id
+                                                    <span class="type-param">
+                                                        LONG
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="twocollapsefive">
+                                                شناسه پیام ارسالی که امکان پیگیری وضعیت پیام با استفاده
+                      از آن وجود دارد
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#twocollapsesix" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">userTraceId
+                                                    <span class="type-param">LONG</span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="twocollapsesix">
+                                                کاربر می تواند برای پیام های ارسالی شناسه ای تعریف و آن
+                      را برای پیگیری های بیشتر به سامانه ارسال
+                      نماید
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 pb-5 col-third">
+                                <div class="container">
+                                    <div class="row p-3">
+                                        <h3 class="text-light">کد آماده</h3>
+                                        <select name="codeType" id="2_codeType" onchange="showCode(2)">
+                                            <option value="2_php">PHP</option>
+                                            <option value="2_csharp">C#</option>
+                                            <option value="2_java">JAVA</option>
+                                            <option value="2_js">PYTHON</option>
+                                        </select>
+                                        <div class="code-box container bg-inside-code rounded mt-3
+                      text-end text-light p-4 text-small">
+                                            <pre id="2_php" class="2_code active">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-php line-numbers hljs">
+<span class="hljs-variable">$curl</span> = <span class="hljs-title function_ invoke__">curl_init</span>();
+
+<span class="hljs-title function_ invoke__">curl_setopt_array</span>(<span class="hljs-variable">$curl</span>, <span class="hljs-keyword">array</span>(
+  CURLOPT_URL =&gt; <span class="hljs-string">'http://api.sms-webservice.com/api/V3/SendBulk'</span>,
+  CURLOPT_RETURNTRANSFER =&gt; <span class="hljs-literal">true</span>,
+  CURLOPT_ENCODING =&gt; <span class="hljs-string">''</span>,
+  CURLOPT_MAXREDIRS =&gt; <span class="hljs-number">10</span>,
+  CURLOPT_TIMEOUT =&gt; <span class="hljs-number">0</span>,
+  CURLOPT_FOLLOWLOCATION =&gt; <span class="hljs-literal">true</span>,
+  CURLOPT_HTTP_VERSION =&gt; CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST =&gt; <span class="hljs-string">'POST'</span>,
+  CURLOPT_POSTFIELDS =&gt;<span class="hljs-string">'{"ApiKey": "string","Text": "string","Sender": 0,"Recipients": [{"Destination": 0,"UserTraceId": 0}]}'</span>,
+  CURLOPT_HTTPHEADER =&gt; <span class="hljs-keyword">array</span>(
+    <span class="hljs-string">'Content-Type: application/json'</span>
+  ),
+));
+
+<span class="hljs-variable">$response</span> = <span class="hljs-title function_ invoke__">curl_exec</span>(<span class="hljs-variable">$curl</span>);
+
+<span class="hljs-title function_ invoke__">curl_close</span>(<span class="hljs-variable">$curl</span>);
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$response</span>;
+                                                </code>
+                                            </pre>
+                                            <pre id="2_csharp" class="2_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-csharp line-numbers hljs">
+<span class="hljs-keyword">var</span> client = <span class="hljs-keyword">new</span> RestClient(<span class="hljs-string">"http://api.sms-webservice.com/api/V3/SendBulk"</span>);
+client.Timeout = <span class="hljs-number">-1</span>;
+<span class="hljs-keyword">var</span> request = <span class="hljs-keyword">new</span> RestRequest(Method.POST);
+request.AddHeader(<span class="hljs-string">"Content-Type"</span>, <span class="hljs-string">"application/json"</span>);
+<span class="hljs-keyword">var</span> body = <span class="hljs-string">@"{""ApiKey"": ""string"",""Text"": ""string"",""Sender"": 0,""Recipients"": [{""Destination"": 0,""UserTraceId"": 0}]}"</span>;
+request.AddParameter(<span class="hljs-string">"application/json"</span>, body,  ParameterType.RequestBody);
+IRestResponse response = client.Execute(request);
+Console.WriteLine(response.Content);
+                                                </code>
+                                            </pre>
+                                            <pre id="2_java" class=" 2_code deactive">                                                <code class="language-java line-numbers hljs">
+                                                    کپی
+<span class="hljs-type">OkHttpClient</span> <span class="hljs-variable">client</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OkHttpClient</span>().newBuilder()
+.build();
+<span class="hljs-type">MediaType</span> <span class="hljs-variable">mediaType</span> <span class="hljs-operator">=</span> MediaType.parse(<span class="hljs-string">"application/json"</span>);
+<span class="hljs-type">RequestBody</span> <span class="hljs-variable">body</span> <span class="hljs-operator">=</span> RequestBody.create(mediaType, <span class="hljs-string">"{\"ApiKey\": \"string\",\"Text\": \"string\",\"Sender\": 0,\"Recipients\": [{\"Destination\": 0,\"UserTraceId\": 0}]}"</span>);
+<span class="hljs-type">Request</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Request</span>.Builder()
+.url(<span class="hljs-string">"http://api.sms-webservice.com/api/V3/SendBulk"</span>)
+.method(<span class="hljs-string">"POST"</span>, body)
+.addHeader(<span class="hljs-string">"Content-Type"</span>, <span class="hljs-string">"application/json"</span>)
+.build();
+<span class="hljs-type">Response</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> client.newCall(request).execute();
+                                                </code>
+                                            </pre>
+                                            <pre id="2_js" class=" 2_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-py line-numbers hljs language-python">
+<span class="hljs-keyword">import</span> requests
+
+url = <span class="hljs-string">"https://api.sms-webservice.com/api/V3/SendBulk"</span>
+
+payload = {
+    <span class="hljs-string">"ApiKey"</span>: <span class="hljs-string">"your_api_key"</span>,
+    <span class="hljs-string">"Text"</span>: <span class="hljs-string">"your_message"</span>,
+    <span class="hljs-string">"Sender"</span>: <span class="hljs-number">1234</span>,
+    <span class="hljs-string">"Recipients"</span>: [
+        {
+            <span class="hljs-string">"Destination"</span>: <span class="hljs-number">5678</span>,
+            <span class="hljs-string">"UserTraceId"</span>: <span class="hljs-number">9876</span>
+        }
+    ]
+}
+
+headers = {
+    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> 
+}
+
+<span class="hljs-keyword">try</span>:
+    response = requests.post(url, headers=headers, json=payload)
+    response.raise_for_status() 
+    <span class="hljs-built_in">print</span>(response.text)
+<span class="hljs-keyword">except</span> requests.exceptions.HTTPError <span class="hljs-keyword">as</span> err:
+    <span class="hljs-built_in">print</span>(err)
+
+                                                </code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- متد سوم -->
+                        <div class="row method-content" id="SendMultiple">
+                            <div class="col-md-7 pb-5 col-second p-3">
+                                <div class="container">
+                                    <div class="row">
+                                        <h3>متد ارسال چند متن به چند گیرنده (SendMultiple)</h3>
+                                        <p>
+                                            اگر قصد دارید به هر گیرنده متن جداگانه ای را ارسال کنید،
+                    این متد چاره کار شماست. با استفاده از این
+                    متد نیازی نیست که به ازای هر گیرنده یک بار درخواست ارسال
+                    کنید و می توانید پیامک های خود را در گروه
+                    های 100 تایی با یک درخواست به سامانه ارسال کنید. همچنین
+                    این متد به شما این قابلیت را می دهد تا به
+                    ازای هر شماره گیرنده یک متن و شماره ارسال کننده مجزا معرفی
+                    کنید.
+                                        </p>
+                                        <div class="container">
+                                            <div class="row text-end method-box p-2 py-3">
+                                                <button class="btn btn-dark btn-sm copy-button in-link" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <p class="webservice-link pb-sm-0 pb-5 post-method m-0">
+                                                    https://api.sms-webservice.com/api/V3/SendMultiple
+                                                </p>
+                                            </div>
+                                            <br>
+                                            <h3>پارامتر های کوئری</h3>
+                                            <p>
+                                                همانطور که در درخواست مشخص است، در ورودی این متد به
+                      ازای هر شماره دریافت کننده متن پیام و شماره
+                      ارسال کننده و شماره پیگیری تعریف شده توسط کاربر نیز
+                      ارسال می گردد.
+                                            </p>
+                                            <br>
+                                            <!-- ---------------خروجی ها--------------- -->
+                                            <div class="row mt-3">
+                                                <div class="col-6">
+                                                    <h3>مقادیر موجود در فیلد Result</h3>
+                                                </div>
+                                                <div class="col-6 text-end px-4 pos-relative d-flex
+                          align-items-center ">
+                                                    <p class="response-text">200
+                                                        <span class="type-param">
+                                                            OBJECT
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <p>
+                                                </p><p>
+                                                    خروجی این متد نیز کاملا شبیه دو متد ارسال قبل می
+                      باشد.
+                                                </p>
+                                            <p></p>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#threecollapseone" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">id
+                                                    <span class="type-param">
+                                                        LONG
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="threecollapseone">
+                                                شناسه پیام ارسالی که امکان پیگیری وضعیت پیام با استفاده
+                      از آن وجود دارد
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#threecollapsetwo" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">userTraceId
+                                                    <span class="type-param">LONG</span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="threecollapsetwo">
+                                                کاربر می تواند برای پیام های ارسالی شناسه ای تعریف و آن
+                      را برای پیگیری های بیشتر به سامانه ارسال
+                      نماید
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 pb-5 col-third">
+                                <div class="container">
+                                    <div class="row p-3">
+                                        <h3 class="text-light">کد آماده</h3>
+                                        <select name="codeType" id="3_codeType" onchange="showCode(3)">
+                                            <option value="3_php">PHP</option>
+                                            <option value="3_csharp">C#</option>
+                                            <option value="3_java">JAVA</option>
+                                            <option value="3_js">PYTHON</option>
+                                        </select>
+                                        <!-- <span class="text-light">نمونه کد</span> -->
+                                        <div class="code-box container bg-inside-code rounded mt-3
+                      text-end text-light p-4 text-small">
+                                            <pre id="3_php" class=" 3_code active">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-php line-numbers hljs">
+<span class="hljs-variable">$curl</span> = <span class="hljs-title function_ invoke__">curl_init</span>();
+
+<span class="hljs-title function_ invoke__">curl_setopt_array</span>(<span class="hljs-variable">$curl</span>, <span class="hljs-keyword">array</span>(
+CURLOPT_URL =&gt; <span class="hljs-string">'http://api.sms-webservice.com/api/V3/SendMultiple'</span>,
+CURLOPT_RETURNTRANSFER =&gt; <span class="hljs-literal">true</span>,
+CURLOPT_ENCODING =&gt; <span class="hljs-string">''</span>,
+CURLOPT_MAXREDIRS =&gt; <span class="hljs-number">10</span>,
+CURLOPT_TIMEOUT =&gt; <span class="hljs-number">0</span>,
+CURLOPT_FOLLOWLOCATION =&gt; <span class="hljs-literal">true</span>,
+CURLOPT_HTTP_VERSION =&gt; CURL_HTTP_VERSION_1_1,
+CURLOPT_CUSTOMREQUEST =&gt; <span class="hljs-string">'POST'</span>,
+CURLOPT_POSTFIELDS =&gt;<span class="hljs-string">'{"ApiKey": "123456","Recipients": [{"Sender": 0,"Text": "test","Destination": 0,"UserTraceId": 0}]}'</span>,
+CURLOPT_HTTPHEADER =&gt; <span class="hljs-keyword">array</span>(
+<span class="hljs-string">'Content-Type: application/json'</span>
+),
+));
+
+<span class="hljs-variable">$response</span> = <span class="hljs-title function_ invoke__">curl_exec</span>(<span class="hljs-variable">$curl</span>);
+
+<span class="hljs-title function_ invoke__">curl_close</span>(<span class="hljs-variable">$curl</span>);
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$response</span>;
+                                                </code>
+                                            </pre>
+                                            <pre id="3_csharp" class=" 3_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-csharp line-numbers hljs">
+<span class="hljs-keyword">var</span> client = <span class="hljs-keyword">new</span> RestClient(<span class="hljs-string">"http://api.sms-webservice.com/api/V3/SendMultiple"</span>);
+client.Timeout = <span class="hljs-number">-1</span>;
+<span class="hljs-keyword">var</span> request = <span class="hljs-keyword">new</span> RestRequest(Method.POST);
+request.AddHeader(<span class="hljs-string">"Content-Type"</span>, <span class="hljs-string">"application/json"</span>);
+<span class="hljs-keyword">var</span> body = <span class="hljs-string">@"{""ApiKey"": ""123456"",""Recipients"": [{""Sender"": 0,""Text"": ""test"",""Destination"": 0,""UserTraceId"": 0}]}"</span>;
+request.AddParameter(<span class="hljs-string">"application/json"</span>, body,  ParameterType.RequestBody);
+IRestResponse response = client.Execute(request);
+Console.WriteLine(response.Content);
+                                                </code>
+                                            </pre>
+                                            <pre id="3_java" class=" 3_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-java line-numbers hljs">
+<span class="hljs-type">OkHttpClient</span> <span class="hljs-variable">client</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OkHttpClient</span>().newBuilder()
+.build();
+<span class="hljs-type">MediaType</span> <span class="hljs-variable">mediaType</span> <span class="hljs-operator">=</span> MediaType.parse(<span class="hljs-string">"application/json"</span>);
+<span class="hljs-type">RequestBody</span> <span class="hljs-variable">body</span> <span class="hljs-operator">=</span> RequestBody.create(mediaType, <span class="hljs-string">"{\"ApiKey\": \"123456\",\"Recipients\": [{\"Sender\": 0,\"Text\": \"test\",\"Destination\": 0,\"UserTraceId\": 0}]}"</span>);
+<span class="hljs-type">Request</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Request</span>.Builder()
+.url(<span class="hljs-string">"http://api.sms-webservice.com/api/V3/SendMultiple"</span>)
+.method(<span class="hljs-string">"POST"</span>, body)
+.addHeader(<span class="hljs-string">"Content-Type"</span>, <span class="hljs-string">"application/json"</span>)
+.build();
+<span class="hljs-type">Response</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> client.newCall(request).execute();
+                                                </code>
+                                            </pre>
+                                            <pre id="3_js" class=" 3_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-py line-numbers hljs language-python">
+<span class="hljs-keyword">import</span> requests
+
+url = <span class="hljs-string">"https://api.sms-webservice.com/api/V3/SendMultiple"</span>
+
+payload = {
+    <span class="hljs-string">"ApiKey"</span>: <span class="hljs-string">"your_api_key"</span>,
+    <span class="hljs-string">"Recipients"</span>: [
+        {
+            <span class="hljs-string">"Sender"</span>: <span class="hljs-string">"your_sender"</span>,
+            <span class="hljs-string">"Text"</span>: <span class="hljs-string">"your_message"</span>,
+            <span class="hljs-string">"Destination"</span>: <span class="hljs-string">"recipient_phone_number"</span>,
+            <span class="hljs-string">"UserTraceId"</span>: <span class="hljs-string">"unique_id"</span>
+        }
+    ]
+}
+
+headers = {
+    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>  
+}
+
+<span class="hljs-keyword">try</span>:
+    response = requests.post(url, headers=headers, json=payload)
+    response.raise_for_status() 
+    <span class="hljs-built_in">print</span>(response.text)
+<span class="hljs-keyword">except</span> requests.exceptions.HTTPError <span class="hljs-keyword">as</span> err:
+    <span class="hljs-built_in">print</span>(err)
+
+                                                </code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- متد چهارم -->
+                        <div class="row method-content" id="SendTokenSingle">
+                            <div class="col-md-7 pb-5 col-second p-3">
+                                <div class="container">
+                                    <div class="row">
+                                        <h3>
+                                            متد ارسال به یک شماره با استفاده از الگوی تعریف شده
+                    (SendTokenSingle)
+                                        </h3>
+                                        <p>
+                                            برای ارسال با استفاده از الگو ازاین متد می توانید استفاده
+                    نمایید، پس از تعریف الگو در سامانه و در
+                    صورت نیاز تعریف پارامترها در آن و تایید آن توسط پشتیبانی
+                    سامانه، با فراخوانی این متد، مقادیر مربوط
+                    به پارامتر ها که در متن الگو تعریف شده، جایگزین و به شماره
+                    دریافت کننده ارسال می گردد. همانطور که در
+                    درخواست مشخص است، شماره ارسال کننده وارد نمی شود و سامانه
+                    سریعترین خط خدماتی را در لحظه انتخاب و
+                    ارسال را با استفاده از آن ثبت می کند.
+                                        </p>
+                                        <div class="container">
+                                            <div class="row text-end method-box p-2 py-3">
+                                                <button class="btn btn-dark btn-sm copy-button in-link" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <p class="webservice-link pb-sm-0 pb-5 get-method m-0">
+                                                    https://api.sms-webservice.com/api/V3/SendTokenSingle
+                                                </p>
+                                            </div>
+                                            <br>
+                                            <h3>پارامتر های ورودی</h3>
+                                            <div class="row text-center method-box mt-3 p-2
+                        collapsible" data-bs-toggle="collapse" data-bs-target="#fourcollapseone" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-6">کلید اختصاصی هر کاربر</div>
+                                                <div class="col-6 "> ApiKey
+                                                    <span class="type-param">
+                                                        STRING
+                                                    </span>
+                                                    <span class="required">
+                                                        Required
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2 content" id="fourcollapseone">
+                                                کلید اختصاصی هر کاربر که در سامانه ایجاد می شود و شناسه
+                      کاربر برای دسترسی به پنل می باشد
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2
+                        collapsible" data-bs-toggle="collapse" data-bs-target="#fourcollapsetwo" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-6">کلید تعریف الگو</div>
+                                                <div class="col-6 "> TemplateKey
+                                                    <span class="type-param">STRING</span>
+                                                    <span class="required">
+                                                        Required
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2 content" id="fourcollapsetwo">
+                                                کلیدی است که حین تعریف الگو در پنل خود تعریف نموده اید.
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2
+                        collapsible" data-bs-toggle="collapse" data-bs-target="#fourcollapsethree" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-6">شماره دریافت کننده</div>
+                                                <div class="col-6 "> Destination
+                                                    <span class="type-param">LONG</span>
+                                                    <span class="required">
+                                                        Required
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2 content" id="fourcollapsethree">
+                                                شماره ای که پیام شما را دریافت خواهد کرد.
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2
+                        collapsible" data-bs-toggle="collapse" data-bs-target="#fourcollapsefive" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-6">پارامتر اول</div>
+                                                <div class="col-6 "> P1
+                                                    <span class="type-param">
+                                                        STRING
+                                                    </span>
+                                                    <span class="required">
+                                                        Required
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2 content" id="fourcollapsefive">
+                                                مقدار مربوط به پارامتر اول که در متن بصورت {1} نوشته شده
+                      است.
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2
+                        collapsible" data-bs-toggle="collapse" data-bs-target="#fourcollapsesix" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-6">پارامتر دوم</div>
+                                                <div class="col-6 "> P2
+                                                    <span class="type-param">
+                                                        STRING
+                                                    </span>
+                                                    <span class="required">
+                                                        Required
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2 content" id="fourcollapsesix">
+                                                مقدار مربوط به پارامتر دوم که در متن بصورت {2} نوشته شده
+                      است.
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2
+                        collapsible" data-bs-toggle="collapse" data-bs-target="#fourcollapseseven" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-6">پارامتر سوم</div>
+                                                <div class="col-6 "> P3
+                                                    <span class="type-param">
+                                                        STRING
+                                                    </span>
+                                                    <span class="required">
+                                                        Required
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2 content" id="fourcollapseseven">
+                                                مقدار مربوط به پارامتر سوم که در متن بصورت {3} نوشته شده
+                      است.
+                                            </div>
+                                            <br>
+                                            <!-- ---------------خروجی ها--------------- -->
+                                            <div class="row mt-3">
+                                                <div class="col-6">
+                                                    <h3>مقادیر موجود در فیلد Result</h3>
+                                                </div>
+                                                <div class="col-6 text-end px-4 pos-relative d-flex
+                          align-items-center ">
+                                                    <p class="response-text">200
+                                                        <span class="type-param">
+                                                            OBJECT
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <p>
+                                                پاسخ این متد علاوه بر فیلدهای Id و UserTraceId دو مقدار
+                      دیگر نیز در خروجی اضافه شده است،
+                                            </p>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#fourcollapseeight" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">id
+                                                    <span class="type-param">
+                                                        LONG
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="fourcollapseeight">
+                                                شناسه پیام ارسالی که امکان پیگیری وضعیت پیام با استفاده
+                      از آن وجود دارد
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#fourcollapsenine" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">userTraceId
+                                                    <span class="type-param">LONG</span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="fourcollapsenine">
+                                                کاربر می تواند برای پیام های ارسالی شناسه ای تعریف و آن
+                      را برای پیگیری های بیشتر به سامانه ارسال
+                      نماید
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#fourcollapseten" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">Sender
+                                                    <span class="type-param">
+                                                        LONG
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="fourcollapseten">
+                                                شماره ارسال کننده که سامانه خود آن را انتخاب کرده
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#fourcollapseeleven" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">FinalText
+                                                    <span class="type-param">
+                                                        STRING
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="fourcollapseeleven">
+                                                متن نهایی که با استفاده از الگوی نامبرده شده و
+                      پارامترهای ارسالی موجود در درخواست ایجاد و در نهایت
+                      به دریافت کننده ارسال شده است
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 pb-5 col-third">
+                                <div class="container">
+                                    <div class="row p-3">
+                                        <h3 class="text-light">کد آماده</h3>
+                                        <select name="codeType" id="4_codeType" onchange="showCode(4)">
+                                            <option value="4_php">PHP</option>
+                                            <option value="4_csharp">C#</option>
+                                            <option value="4_java">JAVA</option>
+                                            <option value="4_js">PYTHON</option>
+                                        </select>
+                                        <!-- <span class="text-light">نمونه کد</span> -->
+                                        <div class="code-box container bg-inside-code rounded mt-3
+                      text-end text-light p-4 text-small">
+                                            <pre id="4_php" class=" 4_code active">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-php line-numbers hljs">
+<span class="hljs-variable">$curl</span> = <span class="hljs-title function_ invoke__">curl_init</span>();
+
+<span class="hljs-title function_ invoke__">curl_setopt_array</span>(<span class="hljs-variable">$curl</span>, <span class="hljs-keyword">array</span>(
+CURLOPT_URL =&gt; <span class="hljs-string">'http://api.sms-webservice.com/api/V3/SendTokenSingle?ApiKey=123456&amp;TemplateKey=123654&amp;Destination=9121111111&amp;p1=125&amp;p2=45&amp;p3=name'</span>,
+CURLOPT_RETURNTRANSFER =&gt; <span class="hljs-literal">true</span>,
+CURLOPT_ENCODING =&gt; <span class="hljs-string">''</span>,
+CURLOPT_MAXREDIRS =&gt; <span class="hljs-number">10</span>,
+CURLOPT_TIMEOUT =&gt; <span class="hljs-number">0</span>,
+CURLOPT_FOLLOWLOCATION =&gt; <span class="hljs-literal">true</span>,
+CURLOPT_HTTP_VERSION =&gt; CURL_HTTP_VERSION_1_1,
+CURLOPT_CUSTOMREQUEST =&gt; <span class="hljs-string">'GET'</span>,
+CURLOPT_POSTFIELDS =&gt;<span class="hljs-string">'{"ApiKey": "123456","Recipients": [{"Sender": 0,"Text": "test","Destination": 0,"UserTraceId": 0}]}'</span>,
+CURLOPT_HTTPHEADER =&gt; <span class="hljs-keyword">array</span>(
+<span class="hljs-string">'Content-Type: application/json'</span>
+),
+));
+
+<span class="hljs-variable">$response</span> = <span class="hljs-title function_ invoke__">curl_exec</span>(<span class="hljs-variable">$curl</span>);
+
+<span class="hljs-title function_ invoke__">curl_close</span>(<span class="hljs-variable">$curl</span>);
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$response</span>;
+                                                </code>
+                                            </pre>
+                                            <pre id="4_csharp" class=" 4_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-csharp line-numbers hljs">
+<span class="hljs-keyword">var</span> client = <span class="hljs-keyword">new</span> RestClient(<span class="hljs-string">"http://api.sms-webservice.com/api/V3/SendTokenSingle?ApiKey=123456&amp;TemplateKey=123654&amp;Destination=9121111111&amp;p1=125&amp;p2=45&amp;p3=name"</span>);
+client.Timeout = <span class="hljs-number">-1</span>;
+<span class="hljs-keyword">var</span> request = <span class="hljs-keyword">new</span> RestRequest(Method.GET);
+request.AddHeader(<span class="hljs-string">"Content-Type"</span>, <span class="hljs-string">"application/json"</span>);
+<span class="hljs-keyword">var</span> body = <span class="hljs-string">@"{""ApiKey"": ""123456"",""Recipients"": [{""Sender"": 0,""Text"": ""test"",""Destination"": 0,""UserTraceId"": 0}]}"</span>;
+request.AddParameter(<span class="hljs-string">"application/json"</span>, body,  ParameterType.RequestBody);
+IRestResponse response = client.Execute(request);
+Console.WriteLine(response.Content);
+                                                </code>
+                                            </pre>
+                                            <pre id="4_java" class=" 4_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-java line-numbers hljs">
+<span class="hljs-type">OkHttpClient</span> <span class="hljs-variable">client</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OkHttpClient</span>().newBuilder()
+.build();
+<span class="hljs-type">MediaType</span> <span class="hljs-variable">mediaType</span> <span class="hljs-operator">=</span> MediaType.parse(<span class="hljs-string">"application/json"</span>);
+<span class="hljs-type">RequestBody</span> <span class="hljs-variable">body</span> <span class="hljs-operator">=</span> RequestBody.create(mediaType, <span class="hljs-string">"{\"ApiKey\": \"123456\",\"Recipients\": [{\"Sender\": 0,\"Text\": \"test\",\"Destination\": 0,\"UserTraceId\": 0}]}"</span>);
+<span class="hljs-type">Request</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Request</span>.Builder()
+.url(<span class="hljs-string">"http://api.sms-webservice.com/api/V3/SendTokenSingle?ApiKey=123456&amp;TemplateKey=123654&amp;Destination=9121111111&amp;p1=125&amp;p2=45&amp;p3=name"</span>)
+.method(<span class="hljs-string">"GET"</span>, body)
+.addHeader(<span class="hljs-string">"Content-Type"</span>, <span class="hljs-string">"application/json"</span>)
+.build();
+<span class="hljs-type">Response</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> client.newCall(request).execute();
+                                                </code>
+                                            </pre>
+                                            <pre id="4_js" class=" 4_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-py line-numbers hljs language-python">
+<span class="hljs-keyword">import</span> requests
+
+url = <span class="hljs-string">"https://api.sms-webservice.com/api/V3/SendTokenSingle"</span>
+
+api_key = <span class="hljs-string">"your_api_key"</span>
+template_key = <span class="hljs-string">"your_template_key"</span>
+destination = <span class="hljs-string">"recipient_phone_number"</span>
+param1 = <span class="hljs-string">"value1"</span>
+param2 = <span class="hljs-string">"value2"</span>
+param3 = <span class="hljs-string">"value3"</span>
+
+url += <span class="hljs-string">f"?ApiKey=<span class="hljs-subst">{api_key}</span>&amp;TemplateKey=<span class="hljs-subst">{template_key}</span>&amp;Destination=<span class="hljs-subst">{destination}</span>&amp;p1=<span class="hljs-subst">{param1}</span>&amp;p2=<span class="hljs-subst">{param2}</span>&amp;p3=<span class="hljs-subst">{param3}</span>"</span>
+
+headers = {
+  <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'text/plain'</span>
+}
+
+<span class="hljs-keyword">try</span>:
+    response = requests.get(url, headers=headers)
+    response.raise_for_status() 
+    <span class="hljs-built_in">print</span>(response.text)
+<span class="hljs-keyword">except</span> requests.exceptions.HTTPError <span class="hljs-keyword">as</span> err:
+    <span class="hljs-built_in">print</span>(err)
+
+                                                </code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- متد پنجم -->
+                        <div class="row method-content" id="SendTokenMulti">
+                            <div class="col-md-7 pb-5 col-second p-3">
+                                <div class="container">
+                                    <div class="row">
+                                        <h3>
+                                            متد ارسال یک الگو با متن های مختلف به چند شماره
+                    (SendTokenMulti)
+                                        </h3>
+                                        <p>
+                                            اگر قصد دارین پیام هایی با متن متفاوت اما در قالب یک الگو
+                    را برای افراد مختلف ارسال نمایید، نیاز
+                    نیست متد قبل را چندین بار فراخوانی نمایید کافیست ازاین متد
+                    استفاده نمایید. متد post بوده و به ازای
+                    هر شماره دریافت کننده، لیست پارامترهای مربوط به آن دریافت
+                    کننده را نیز دریافت خواهد کرد.
+                                        </p>
+                                        <div class="container">
+                                            <div class="row text-end method-box p-2 py-3">
+                                                <button class="btn btn-dark btn-sm copy-button in-link" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <p class="webservice-link pb-sm-0 pb-5 post-method m-0">
+                                                    https://api.sms-webservice.com/api/V3/SendTokenMulti
+                                                </p>
+                                            </div>
+                                            <br>
+                                            <h3>پارامتر های ورودی</h3>
+                                            
+                                                <pre>                                                    <code class="language-json line-numbers hljs"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"ApiKey"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"TemplateKey"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"Recipients"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"Destination"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"UserTraceId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"Parameters"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+            <span class="hljs-string">"string"</span>
+        <span class="hljs-punctuation">]</span>
+        <span class="hljs-punctuation">}</span>  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">}</span>
+                                                    </code>
+                                                </pre>
+                                            <p>
+                                                همانطور که در تصویر بالا مشخص است، در بدنه درخواست
+                      دریافت کننده پیامک لیستی است که شامل شماره
+                      دریافت کننده، شماره شناسه تعریف شده توسط کاربرو لیستی از
+                      پارامترهای مورد نیاز برای یک شماره
+                      درخواست کننده با توجه به الگوی انتخابی می باشد.
+                                            </p>
+                                            <br>
+                                            <!-- ---------------خروجی ها--------------- -->
+                                            <div class="row mt-3">
+                                                <div class="col-6">
+                                                    <h3>مقادیر موجود در فیلد Result</h3>
+                                                </div>
+                                                <div class="col-6 text-end px-4 pos-relative d-flex
+                          align-items-center ">
+                                                    <p class="response-text">200
+                                                        <span class="type-param">
+                                                            OBJECT
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <p>
+                                                پاسخ دریافتی از این درخواست نیز همانند متد قبل بوده و
+                      آرایه ای از جدول زیر خواهد بود که آیتم های
+                      آرایه به تعداد شماره های دریافت کننده می باشد.
+                                            </p>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#fivecollapseeight" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">id
+                                                    <span class="type-param">
+                                                        LONG
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="fivecollapseeight">
+                                                شناسه پیام ارسالی که امکان پیگیری وضعیت پیام با استفاده
+                      از آن وجود دارد
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#fivecollapsenine" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">userTraceId
+                                                    <span class="type-param">LONG</span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="fivecollapsenine">
+                                                کاربر می تواند برای پیام های ارسالی شناسه ای تعریف و آن
+                      را برای پیگیری های بیشتر به سامانه ارسال
+                      نماید
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#fivecollapseten" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">Sender
+                                                    <span class="type-param">
+                                                        LONG
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="fivecollapseten">
+                                                شماره ارسال کننده که سامانه خود آن را انتخاب کرده
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#fivecollapseeleven" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">FinalText
+                                                    <span class="type-param">
+                                                        STRING
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="fivecollapseeleven">
+                                                متن نهایی که با استفاده از الگوی نامبرده شده و
+                      پارامترهای ارسالی موجود در درخواست ایجاد و در نهایت
+                      به دریافت کننده ارسال شده است
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 pb-5 col-third">
+                                <div class="container">
+                                    <div class="row p-3">
+                                        <h3 class="text-light">کد آماده</h3>
+                                        <select name="codeType" id="5_codeType" onchange="showCode(5)">
+                                            <option value="5_php">PHP</option>
+                                            <option value="5_csharp">C#</option>
+                                            <option value="5_java">JAVA</option>
+                                            <option value="5_js">PYTHON</option>
+                                        </select>
+                                        <!-- <span class="text-light">نمونه کد</span> -->
+                                        <div class="code-box container bg-inside-code rounded mt-3
+                      text-end text-light p-4 text-small">
+                                            <pre id="5_php" class=" 5_code active">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-php line-numbers hljs">
+<span class="hljs-variable">$curl</span> = <span class="hljs-title function_ invoke__">curl_init</span>();
+
+<span class="hljs-title function_ invoke__">curl_setopt_array</span>(<span class="hljs-variable">$curl</span>, <span class="hljs-keyword">array</span>(
+CURLOPT_URL =&gt; <span class="hljs-string">'http://api.sms-webservice.com/api/V3/SendTokenMulti'</span>,
+CURLOPT_RETURNTRANSFER =&gt; <span class="hljs-literal">true</span>,
+CURLOPT_ENCODING =&gt; <span class="hljs-string">''</span>,
+CURLOPT_MAXREDIRS =&gt; <span class="hljs-number">10</span>,
+CURLOPT_TIMEOUT =&gt; <span class="hljs-number">0</span>,
+CURLOPT_FOLLOWLOCATION =&gt; <span class="hljs-literal">true</span>,
+CURLOPT_HTTP_VERSION =&gt; CURL_HTTP_VERSION_1_1,
+CURLOPT_CUSTOMREQUEST =&gt; <span class="hljs-string">'POST'</span>,
+CURLOPT_POSTFIELDS =&gt;<span class="hljs-string">'{"ApiKey": "string","TemplateKey": "string","Recipients": [{"Destination": 0,"UserTraceId": 0,"Parameters": ["string"]}]}'</span>,
+CURLOPT_HTTPHEADER =&gt; <span class="hljs-keyword">array</span>(
+<span class="hljs-string">'Content-Type: application/json'</span>
+),
+));
+
+<span class="hljs-variable">$response</span> = <span class="hljs-title function_ invoke__">curl_exec</span>(<span class="hljs-variable">$curl</span>);
+
+<span class="hljs-title function_ invoke__">curl_close</span>(<span class="hljs-variable">$curl</span>);
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$response</span>;
+                                                </code>
+                                            </pre>
+                                            <pre id="5_csharp" class=" 5_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-csharp line-numbers hljs">
+<span class="hljs-keyword">var</span> client = <span class="hljs-keyword">new</span> RestClient(<span class="hljs-string">"http://api.sms-webservice.com/api/V3/SendTokenMulti"</span>);
+client.Timeout = <span class="hljs-number">-1</span>;
+<span class="hljs-keyword">var</span> request = <span class="hljs-keyword">new</span> RestRequest(Method.POST);
+request.AddHeader(<span class="hljs-string">"Content-Type"</span>, <span class="hljs-string">"application/json"</span>);
+<span class="hljs-keyword">var</span> body = <span class="hljs-string">@"{""ApiKey"": ""string"",""TemplateKey"": ""string"",""Recipients"": [{""Destination"": 0,""UserTraceId"": 0,""Parameters"": [""string""]}]}"</span>;
+request.AddParameter(<span class="hljs-string">"application/json"</span>, body,  ParameterType.RequestBody);
+IRestResponse response = client.Execute(request);
+Console.WriteLine(response.Content);S
+                                                </code>
+                                            </pre>
+                                            <pre id="5_java" class=" 5_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-java line-numbers hljs">
+<span class="hljs-type">OkHttpClient</span> <span class="hljs-variable">client</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OkHttpClient</span>().newBuilder()
+.build();
+<span class="hljs-type">MediaType</span> <span class="hljs-variable">mediaType</span> <span class="hljs-operator">=</span> MediaType.parse(<span class="hljs-string">"application/json"</span>);
+<span class="hljs-type">RequestBody</span> <span class="hljs-variable">body</span> <span class="hljs-operator">=</span> RequestBody.create(mediaType, <span class="hljs-string">"{\"ApiKey\": \"string\",\"TemplateKey\": \"string\",\"Recipients\": [{\"Destination\": 0,\"UserTraceId\": 0,\"Parameters\": [\"string\"]}]}"</span>);
+<span class="hljs-type">Request</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Request</span>.Builder()
+.url(<span class="hljs-string">"http://api.sms-webservice.com/api/V3/SendTokenMulti"</span>)
+.method(<span class="hljs-string">"POST"</span>, body)
+.addHeader(<span class="hljs-string">"Content-Type"</span>, <span class="hljs-string">"application/json"</span>)
+.build();
+<span class="hljs-type">Response</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> client.newCall(request).execute();
+                                                </code>
+                                            </pre>
+                                            <pre id="5_js" class=" 5_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-py line-numbers hljs language-python">
+<span class="hljs-keyword">import</span> requests
+
+url = <span class="hljs-string">"https://api.sms-webservice.com/api/V3/SendTokenMulti"</span>
+
+payload = {
+    <span class="hljs-string">"ApiKey"</span>: <span class="hljs-string">"your_api_key"</span>,
+    <span class="hljs-string">"TemplateKey"</span>: <span class="hljs-string">"your_template_key"</span>,
+    <span class="hljs-string">"Recipients"</span>: [
+        {
+            <span class="hljs-string">"Destination"</span>: <span class="hljs-string">"recipient_phone_number"</span>,
+            <span class="hljs-string">"UserTraceId"</span>: <span class="hljs-string">"unique_id"</span>,
+            <span class="hljs-string">"Parameters"</span>: [
+                <span class="hljs-string">"param1_value"</span>,
+                <span class="hljs-string">"param2_value"</span>,
+                <span class="hljs-string">"param3_value"</span>
+            ]
+        }
+    ]
+}
+
+headers = {
+    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>
+}
+
+<span class="hljs-keyword">try</span>:
+    response = requests.post(url, headers=headers, json=payload)
+    response.raise_for_status() 
+    <span class="hljs-built_in">print</span>(response.text)
+<span class="hljs-keyword">except</span> requests.exceptions.HTTPError <span class="hljs-keyword">as</span> err:
+    <span class="hljs-built_in">print</span>(err)
+
+                                                </code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- متد ششم -->
+                        <div class="row method-content" id="TokenList">
+                            <div class="col-md-7 pb-5 col-second p-3">
+                                <div class="container">
+                                    <div class="row">
+                                        <h3>متد دریافت لیست الگوهای تعریف شده در پنل (TokenList)</h3>
+                                        <p>
+                                            در صورتیکه بخواهید لیست الگوهای تعریف شده در پنل را
+                    مشاهده نمایید، می توانید ازین متد استفاده
+                    نمایید.
+                    شکل متد :
+                                        </p>
+                                        <div class="container">
+                                            <div class="row text-end method-box p-2 py-3">
+                                                <button class="btn btn-dark btn-sm copy-button in-link" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <p class="webservice-link pb-sm-0 pb-5 post-method m-0">
+                                                    https://api.sms-webservice.com/api/V3/TokenList
+                                                </p>
+                                            </div>
+                                            <br>
+                                            <h3>پارامتر های ورودی</h3>
+                                            <p>
+                                                متد این درخواستpost بوده و مقدار ورودی در بدنه درخواست
+                      ارسال می شود. مقدار ورودی این متد، کلید
+                      اختصاصی پنل شماست.
+                                            </p>
+                                            <div class="row text-center method-box mt-3 p-2
+                        collapsible" data-bs-toggle="collapse" data-bs-target="#sixcollapseone" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-6">کلید اختصاصی هر کاربر</div>
+                                                <div class="col-6 "> ApiKey
+                                                    <span class="type-param">
+                                                        STRING
+                                                    </span>
+                                                    <span class="required">
+                                                        Required
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2 content" id="sixcollapseone">
+                                                کلید اختصاصی هر کاربر که در سامانه ایجاد می شود و شناسه
+                      کاربر برای دسترسی به پنل می باشد
+                                            </div>
+                                            <br>
+                                            <!-- ---------------خروجی ها--------------- -->
+                                            <div class="row mt-3">
+                                                <div class="col-6">
+                                                    <h3>مقادیر موجود در فیلد Result</h3>
+                                                </div>
+                                                <div class="col-6 text-end px-4 pos-relative d-flex
+                          align-items-center ">
+                                                    <p class="response-text">200
+                                                        <span class="type-param">
+                                                            OBJECT
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <p>
+                                                پاسخ دریافتی از این درخواست نیز همانند متد قبل بوده و
+                      آرایه ای از جدول زیر خواهد بود که آیتم های
+                      آرایه به تعداد شماره های دریافت کننده می باشد.
+                                            </p>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#sixcollapseeight" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">status
+                                                    <span class="type-param">
+                                                        LONG
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="sixcollapseeight">
+                                                اگر 0 باشد : درانتظار بررسی مقادیر
+                                                <br>
+                                                اگر 1 باشد : تایید شده
+                                                <br>
+                                                اگر 2 باشد : رد شده، قابل ویرایش
+                                                <br>
+                                                اگر 3 باشید : ردشده، غیر قابل ویرایش
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 pb-5 col-third">
+                                <div class="container">
+                                    <div class="row p-3">
+                                        <h3 class="text-light">کد آماده</h3>
+                                        <select name="codeType" id="6_codeType" onchange="showCode(6)">
+                                            <option value="6_php">PHP</option>
+                                            <option value="6_csharp">C#</option>
+                                            <option value="6_java">JAVA</option>
+                                            <option value="6_js">PYTHON</option>
+                                        </select>
+                                        <!-- <span class="text-light">نمونه کد</span> -->
+                                        <div class="code-box container bg-inside-code rounded mt-3
+                      text-end text-light p-4 text-small">
+                                            <pre id="6_php" class=" 6_code active">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-php line-numbers hljs">
+<span class="hljs-variable">$curl</span> = <span class="hljs-title function_ invoke__">curl_init</span>();
+
+<span class="hljs-title function_ invoke__">curl_setopt_array</span>(<span class="hljs-variable">$curl</span>, <span class="hljs-keyword">array</span>(
+CURLOPT_URL =&gt; <span class="hljs-string">'http://api.sms-webservice.com/api/V3/TokenList'</span>,
+CURLOPT_RETURNTRANSFER =&gt; <span class="hljs-literal">true</span>,
+CURLOPT_ENCODING =&gt; <span class="hljs-string">''</span>,
+CURLOPT_MAXREDIRS =&gt; <span class="hljs-number">10</span>,
+CURLOPT_TIMEOUT =&gt; <span class="hljs-number">0</span>,
+CURLOPT_FOLLOWLOCATION =&gt; <span class="hljs-literal">true</span>,
+CURLOPT_HTTP_VERSION =&gt; CURL_HTTP_VERSION_1_1,
+CURLOPT_CUSTOMREQUEST =&gt; <span class="hljs-string">'POST'</span>,
+CURLOPT_POSTFIELDS =&gt;<span class="hljs-string">'{
+"ApiKey": "123456"
+}'</span>,
+CURLOPT_HTTPHEADER =&gt; <span class="hljs-keyword">array</span>(
+<span class="hljs-string">'Content-Type: application/json'</span>
+),
+));
+
+<span class="hljs-variable">$response</span> = <span class="hljs-title function_ invoke__">curl_exec</span>(<span class="hljs-variable">$curl</span>);
+
+<span class="hljs-title function_ invoke__">curl_close</span>(<span class="hljs-variable">$curl</span>);
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$response</span>;
+                                                </code>
+                                            </pre>
+                                            <pre id="6_csharp" class=" 6_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-csharp line-numbers hljs">
+<span class="hljs-keyword">var</span> client = <span class="hljs-keyword">new</span> RestClient(<span class="hljs-string">"http://api.sms-webservice.com/api/V3/TokenList"</span>);
+client.Timeout = <span class="hljs-number">-1</span>;
+<span class="hljs-keyword">var</span> request = <span class="hljs-keyword">new</span> RestRequest(Method.POST);
+request.AddHeader(<span class="hljs-string">"Content-Type"</span>, <span class="hljs-string">"application/json"</span>);
+<span class="hljs-keyword">var</span> body = <span class="hljs-string">@"{
+"</span> + <span class="hljs-string">"\n"</span> +
+<span class="hljs-string">@"  ""ApiKey"": ""123456""
+"</span> + <span class="hljs-string">"\n"</span> +
+<span class="hljs-string">@"}"</span>;
+request.AddParameter(<span class="hljs-string">"application/json"</span>, body,  ParameterType.RequestBody);
+IRestResponse response = client.Execute(request);
+Console.WriteLine(response.Content);
+                                                </code>
+                                            </pre>
+                                            <pre id="6_java" class=" 6_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-java line-numbers hljs">
+<span class="hljs-type">OkHttpClient</span> <span class="hljs-variable">client</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OkHttpClient</span>().newBuilder()
+.build();
+<span class="hljs-type">MediaType</span> <span class="hljs-variable">mediaType</span> <span class="hljs-operator">=</span> MediaType.parse(<span class="hljs-string">"application/json"</span>);
+<span class="hljs-type">RequestBody</span> <span class="hljs-variable">body</span> <span class="hljs-operator">=</span> RequestBody.create(mediaType, <span class="hljs-string">"{\r\n  \"ApiKey\": \"123456\"\r\n}"</span>);
+<span class="hljs-type">Request</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Request</span>.Builder()
+.url(<span class="hljs-string">"http://api.sms-webservice.com/api/V3/TokenList"</span>)
+.method(<span class="hljs-string">"POST"</span>, body)
+.addHeader(<span class="hljs-string">"Content-Type"</span>, <span class="hljs-string">"application/json"</span>)
+.build();
+<span class="hljs-type">Response</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> client.newCall(request).execute();
+                                                </code>
+                                            </pre>
+                                            <pre id="6_js" class=" 6_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-py line-numbers hljs language-python">
+<span class="hljs-keyword">import</span> requests
+
+url = <span class="hljs-string">"https://api.sms-webservice.com/api/V3/TokenList"</span>
+
+payload = {
+    <span class="hljs-string">"ApiKey"</span>: <span class="hljs-string">"your_api_key"</span>
+}
+
+headers = {
+    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> 
+}
+
+<span class="hljs-keyword">try</span>:
+    response = requests.post(url, headers=headers, json=payload)
+    response.raise_for_status() 
+    <span class="hljs-built_in">print</span>(response.text)
+<span class="hljs-keyword">except</span> requests.exceptions.HTTPError <span class="hljs-keyword">as</span> err:
+    <span class="hljs-built_in">print</span>(err)
+
+                                                </code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- متد هفتم -->
+                        <div class="row method-content" id="StatusById">
+                            <div class="col-md-7 pb-5 col-second p-3">
+                                <div class="container">
+                                    <div class="row">
+                                        <h3>متد دریافت وضعیت پیام های ارسالی (StatusById)</h3>
+                                        <p>
+                                            زمانیکه بخواهیم پس از ارسال پیام، وضعیت پیام ارسالی را
+                    داشته باشیم، نیاز است ازاین متد استفاده
+                    نماییم، در یک درخواست می توان از وضعیت بیش از یک پیام
+                    استعلام گرفت.
+                                        </p>
+                                        <div class="container">
+                                            <div class="row text-end method-box p-2 py-3">
+                                                <button class="btn btn-dark btn-sm copy-button in-link" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <p class="webservice-link pb-sm-0 pb-5 post-method m-0">
+                                                    https://api.sms-webservice.com/api/V3/StatusById
+                                                </p>
+                                            </div>
+                                            <br>
+                                            <h3>پارامتر های ورودی</h3>
+                                            <p>
+                                                این متد نیز post بوده و پارامترهای ورودی از طریق بدنه
+                      متد ارسال میشوند، بدنه متد شامل شناسه پنل و
+                      لیستی از شناسه پیامک های ارسالی که می خواهیم وضعیت آنها
+                      را داشته باشیم :
+                                            </p>
+                                            <div class="row text-center method-box mt-3 p-2
+                        collapsible" data-bs-toggle="collapse" data-bs-target="#sevencollapseone" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-6">کلید اختصاصی هر کاربر</div>
+                                                <div class="col-6 "> ApiKey
+                                                    <span class="type-param">
+                                                        STRING
+                                                    </span>
+                                                    <span class="required">
+                                                        Required
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2 content" id="sevencollapseone">
+                                                کلید اختصاصی هر کاربر که در سامانه ایجاد می شود و شناسه
+                      کاربر برای دسترسی به پنل می باشد
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2
+                        collapsible" data-bs-toggle="collapse" data-bs-target="#sevencollapsetwo" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-6">لیست شناسه های ارسال پیامک</div>
+                                                <div class="col-6 "> Ids
+                                                    <span class="type-param">
+                                                        ARRAY
+                          Of LONG
+                                                    </span>
+                                                    <span class="required">
+                                                        Required
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2 content" id="sevencollapsetwo">
+                                                لیست شناسه های ارسال پیامک، که به ازای ارسال هر پیامک
+                      سیستم، بر می گرداند.
+                                            </div>
+                                            <br>
+                                            <!-- ---------------خروجی ها--------------- -->
+                                            <div class="row mt-3">
+                                                <div class="col-6">
+                                                    <h3>مقادیر موجود در فیلد Result</h3>
+                                                </div>
+                                                <div class="col-6 text-end px-4 pos-relative d-flex
+                          align-items-center ">
+                                                    <p class="response-text">200
+                                                        <span class="type-param">
+                                                            OBJECT
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <p>
+                                                پاسخ این متد شامل لیستی است که به ازای هر id ،
+                      UserTraceId ووضعیت پیام ارسالی را نمایش می دهد،
+                      لیست کامل وضعیت هایی که به ازای این درخواست ممکن است
+                      دریافت نمایید، در جدول انتهای این سند موجود
+                      است.
+                                            </p>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#sevencollapsethree" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">id
+                                                    <span class="type-param">
+                                                        LONG
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="sevencollapsethree">
+                                                شناسه پیام ارسالی که امکان پیگیری وضعیت پیام با استفاده
+                      از آن وجود دارد
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#sevencollapsefour" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">userTraceId
+                                                    <span class="type-param">LONG</span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="sevencollapsefour">
+                                                کاربر می تواند برای پیام های ارسالی شناسه ای تعریف و آن
+                      را برای پیگیری های بیشتر به سامانه ارسال
+                      نماید
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#sevencollapsefive" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">StatusCode
+                                                    <span class="type-param">NUMBER</span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="sevencollapsefive">
+                                                کد وضعیت پیامک ارسال شده
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#sevencollapseseven" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">Status
+                                                    <span class="type-param">
+                                                        STRING
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="sevencollapseseven">
+                                                متن توضیح در مورد وضعیت پیامک ارسال شده
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 pb-5 col-third">
+                                <div class="container">
+                                    <div class="row p-3">
+                                        <h3 class="text-light">کد آماده</h3>
+                                        <select name="codeType" id="7_codeType" onchange="showCode(7)">
+                                            <option value="7_php">PHP</option>
+                                            <option value="7_csharp">C#</option>
+                                            <option value="7_java">JAVA</option>
+                                            <option value="7_js">PYTHON</option>
+                                        </select>
+                                        <!-- <span class="text-light">نمونه کد</span> -->
+                                        <div class="code-box container bg-inside-code rounded mt-3
+                      text-end text-light p-4 text-small">
+                                            <pre id="7_php" class=" 7_code active">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-php line-numbers hljs">
+<span class="hljs-variable">$curl</span> = <span class="hljs-title function_ invoke__">curl_init</span>();
+
+<span class="hljs-title function_ invoke__">curl_setopt_array</span>(<span class="hljs-variable">$curl</span>, <span class="hljs-keyword">array</span>(
+CURLOPT_URL =&gt; <span class="hljs-string">'http://api.sms-webservice.com/api/V3/StatusById'</span>,
+CURLOPT_RETURNTRANSFER =&gt; <span class="hljs-literal">true</span>,
+CURLOPT_ENCODING =&gt; <span class="hljs-string">''</span>,
+CURLOPT_MAXREDIRS =&gt; <span class="hljs-number">10</span>,
+CURLOPT_TIMEOUT =&gt; <span class="hljs-number">0</span>,
+CURLOPT_FOLLOWLOCATION =&gt; <span class="hljs-literal">true</span>,
+CURLOPT_HTTP_VERSION =&gt; CURL_HTTP_VERSION_1_1,
+CURLOPT_CUSTOMREQUEST =&gt; <span class="hljs-string">'POST'</span>,
+CURLOPT_POSTFIELDS =&gt;<span class="hljs-string">'{"ApiKey": "string","Ids": [0]}'</span>,
+CURLOPT_HTTPHEADER =&gt; <span class="hljs-keyword">array</span>(
+<span class="hljs-string">'Content-Type: application/json'</span>
+),
+));
+
+<span class="hljs-variable">$response</span> = <span class="hljs-title function_ invoke__">curl_exec</span>(<span class="hljs-variable">$curl</span>);
+
+<span class="hljs-title function_ invoke__">curl_close</span>(<span class="hljs-variable">$curl</span>);
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$response</span>;
+                                                </code>
+                                            </pre>
+                                            <pre id="7_csharp" class=" 7_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-csharp line-numbers hljs">
+<span class="hljs-keyword">var</span> client = <span class="hljs-keyword">new</span> RestClient(<span class="hljs-string">"http://api.sms-webservice.com/api/V3/StatusById"</span>);
+client.Timeout = <span class="hljs-number">-1</span>;
+<span class="hljs-keyword">var</span> request = <span class="hljs-keyword">new</span> RestRequest(Method.POST);
+request.AddHeader(<span class="hljs-string">"Content-Type"</span>, <span class="hljs-string">"application/json"</span>);
+<span class="hljs-keyword">var</span> body = <span class="hljs-string">@"{""ApiKey"": ""string"",""Ids"": [0]}"</span>;
+request.AddParameter(<span class="hljs-string">"application/json"</span>, body,  ParameterType.RequestBody);
+IRestResponse response = client.Execute(request);
+Console.WriteLine(response.Content);
+                                                </code>
+                                            </pre>
+                                            <pre id="7_java" class=" 7_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-java line-numbers hljs">
+<span class="hljs-type">OkHttpClient</span> <span class="hljs-variable">client</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OkHttpClient</span>().newBuilder()
+.build();
+<span class="hljs-type">MediaType</span> <span class="hljs-variable">mediaType</span> <span class="hljs-operator">=</span> MediaType.parse(<span class="hljs-string">"application/json"</span>);
+<span class="hljs-type">RequestBody</span> <span class="hljs-variable">body</span> <span class="hljs-operator">=</span> RequestBody.create(mediaType, <span class="hljs-string">"{\"ApiKey\": \"string\",\"Ids\": [0]}"</span>);
+<span class="hljs-type">Request</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Request</span>.Builder()
+.url(<span class="hljs-string">"http://api.sms-webservice.com/api/V3/StatusById"</span>)
+.method(<span class="hljs-string">"POST"</span>, body)
+.addHeader(<span class="hljs-string">"Content-Type"</span>, <span class="hljs-string">"application/json"</span>)
+.build();
+<span class="hljs-type">Response</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> client.newCall(request).execute();
+                                                </code>
+                                            </pre>
+                                            <pre id="7_js" class=" 7_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-py line-numbers hljs language-python">
+<span class="hljs-keyword">import</span> requests
+
+url = <span class="hljs-string">"https://api.sms-webservice.com/api/V3/StatusById"</span>
+
+payload = {
+    <span class="hljs-string">"ApiKey"</span>: <span class="hljs-string">"your_api_key"</span>,
+    <span class="hljs-string">"Ids"</span>: [
+        <span class="hljs-number">123456789</span> 
+    ]
+}
+
+headers = {
+    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>
+}
+
+<span class="hljs-keyword">try</span>:
+    response = requests.post(url, headers=headers, json=payload)
+    response.raise_for_status() 
+    <span class="hljs-built_in">print</span>(response.text)
+<span class="hljs-keyword">except</span> requests.exceptions.HTTPError <span class="hljs-keyword">as</span> err:
+    <span class="hljs-built_in">print</span>(err)
+
+                                                </code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- متد هشتم -->
+                        <div class="row method-content" id="StatusByTraceId">
+                            <div class="col-md-7 pb-5 col-second p-3">
+                                <div class="container">
+                                    <div class="row">
+                                        <h3>متد دریافت وضعیت پیام های ارسالی (StatusByTraceId)</h3>
+                                        <p>
+                                            زمانیکه بخواهیم پس از ارسال پیام، وضعیت پیام ارسالی را
+                    داشته باشیم، و شناسه های پیامک های ارسالی را
+                    در اختیار نداشته باشیم، می توانیم ازاین متد استفاده
+                    نماییم، در یک درخواست می توان از وضعیت بیش از یک
+                    پیام استعلام گرفت.
+                                        </p>
+                                        <div class="container">
+                                            <div class="row text-end method-box p-2 py-3">
+                                                <button class="btn btn-dark btn-sm copy-button in-link" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <p class="webservice-link pb-sm-0 pb-5 post-method m-0">
+                                                    https://api.sms-webservice.com/api/V3/StatusByUserTraceId
+                                                </p>
+                                            </div>
+                                            <br>
+                                            <h3>پارامتر های ورودی</h3>
+                                            <p>
+                                                این متد نیز post بوده و پارامترهای ورودی از طریق بدنه
+                      متد ارسال میشوند، بدنه متد شامل شناسه پنل و
+                      لیستی از شناسه پیامک های ارسالی که قبلا توسط سیستم شما
+                      ایجاد شده و به سامانه ارسال شده، می باشد.
+                                            </p>
+                                            <div class="row text-center method-box mt-3 p-2
+                        collapsible" data-bs-toggle="collapse" data-bs-target="#eightcollapseone" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-6">کلید اختصاصی هر کاربر</div>
+                                                <div class="col-6 "> ApiKey
+                                                    <span class="type-param">
+                                                        STRING
+                                                    </span>
+                                                    <span class="required">
+                                                        Required
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2 content" id="eightcollapseone">
+                                                کلید اختصاصی هر کاربر که در سامانه ایجاد می شود و شناسه
+                      کاربر برای دسترسی به پنل می باشد
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2
+                        collapsible" data-bs-toggle="collapse" data-bs-target="#eightcollapsetwo" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-6">
+                                                    لیست شناسه های ارسال پیامک تعریف شده
+                        توسط کاربر
+                                                </div>
+                                                <div class="col-6 "> UserTraceIds
+                                                    <span class="type-param">ARRAY Of LONG</span>
+                                                    <span class="required"> Required</span>
+                                                    <i class="bi
+                            bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2 content" id="eightcollapsetwo">
+                                                لیست شناسه های ارسال پیامک تعریف شده توسط کاربر، که به
+                      ازای هر پیامک سیستم کاربر ایجاد می کند و به
+                      همراه درخواست به سامانه ارسال می کند.
+                                            </div>
+                                            <br>
+                                            <!-- ---------------خروجی ها--------------- -->
+                                            <div class="row mt-3">
+                                                <div class="col-6">
+                                                    <h3>مقادیر موجود در فیلد Result</h3>
+                                                </div>
+                                                <div class="col-6 text-end px-4 pos-relative d-flex
+                          align-items-center ">
+                                                    <p class="response-text">200
+                                                        <span class="type-param">
+                                                            OBJECT
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <p>
+                                                پاسخ این متد شامل لیستی است که به ازای هر UserTraceId ،
+                      id و وضعیت پیام ارسالی را نمایش می دهد، ،
+                      لیست کامل وضعیت هایی که به ازای این درخواست ممکن است
+                      دریافت نمایید، در جدول انتهای این سند موجود
+                      است.
+                                            </p>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#eightcollapsethree" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">id
+                                                    <span class="type-param">
+                                                        LONG
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="eightcollapsethree">
+                                                شناسه پیام ارسالی که امکان پیگیری وضعیت پیام با استفاده
+                      از آن وجود دارد
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#eightcollapsefour" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">userTraceId
+                                                    <span class="type-param">LONG</span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="eightcollapsefour">
+                                                کاربر می تواند برای پیام های ارسالی شناسه ای تعریف و آن
+                      را برای پیگیری های بیشتر به سامانه ارسال
+                      نماید
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#eightcollapsefive" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">StatusCode
+                                                    <span class="type-param">NUMBER</span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="eightcollapsefive">
+                                                کد وضعیت پیامک ارسال شده
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#eightcollapsesix" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">Status
+                                                    <span class="type-param">
+                                                        STRING
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="eightcollapsesix">
+                                                متن توضیح در مورد وضعیت پیامک ارسال شده
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 pb-5 col-third">
+                                <div class="container">
+                                    <div class="row p-3">
+                                        <h3 class="text-light">کد آماده</h3>
+                                        <select name="codeType" id="8_codeType" onchange="showCode(8)">
+                                            <option value="8_php">PHP</option>
+                                            <option value="8_csharp">C#</option>
+                                            <option value="8_java">JAVA</option>
+                                            <option value="8_js">PYTHON</option>
+                                        </select>
+                                        <!-- <span class="text-light">نمونه کد</span> -->
+                                        <div class="code-box container bg-inside-code rounded mt-3
+                      text-end text-light p-4 text-small">
+                                            <pre id="8_php" class=" 8_code active">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-php line-numbers hljs">
+<span class="hljs-variable">$curl</span> = <span class="hljs-title function_ invoke__">curl_init</span>();
+
+<span class="hljs-title function_ invoke__">curl_setopt_array</span>(<span class="hljs-variable">$curl</span>, <span class="hljs-keyword">array</span>(
+CURLOPT_URL =&gt; <span class="hljs-string">'http://api.sms-webservice.com/api/V3/StatusByUserTraceId'</span>,
+CURLOPT_RETURNTRANSFER =&gt; <span class="hljs-literal">true</span>,
+CURLOPT_ENCODING =&gt; <span class="hljs-string">''</span>,
+CURLOPT_MAXREDIRS =&gt; <span class="hljs-number">10</span>,
+CURLOPT_TIMEOUT =&gt; <span class="hljs-number">0</span>,
+CURLOPT_FOLLOWLOCATION =&gt; <span class="hljs-literal">true</span>,
+CURLOPT_HTTP_VERSION =&gt; CURL_HTTP_VERSION_1_1,
+CURLOPT_CUSTOMREQUEST =&gt; <span class="hljs-string">'POST'</span>,
+CURLOPT_POSTFIELDS =&gt;<span class="hljs-string">'{"ApiKey": "string","UserTraceIds": [0]}'</span>,
+CURLOPT_HTTPHEADER =&gt; <span class="hljs-keyword">array</span>(
+<span class="hljs-string">'Content-Type: application/json'</span>
+),
+));
+
+<span class="hljs-variable">$response</span> = <span class="hljs-title function_ invoke__">curl_exec</span>(<span class="hljs-variable">$curl</span>);
+
+<span class="hljs-title function_ invoke__">curl_close</span>(<span class="hljs-variable">$curl</span>);
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$response</span>;
+                                                </code>
+                                            </pre>
+                                            <pre id="8_csharp" class=" 8_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-csharp line-numbers hljs">
+<span class="hljs-keyword">var</span> client = <span class="hljs-keyword">new</span> RestClient(<span class="hljs-string">"http://api.sms-webservice.com/api/V3/StatusByUserTraceId"</span>);
+client.Timeout = <span class="hljs-number">-1</span>;
+<span class="hljs-keyword">var</span> request = <span class="hljs-keyword">new</span> RestRequest(Method.POST);
+request.AddHeader(<span class="hljs-string">"Content-Type"</span>, <span class="hljs-string">"application/json"</span>);
+<span class="hljs-keyword">var</span> body = <span class="hljs-string">@"{""ApiKey"": ""string"",""UserTraceIds"": [0]}"</span>;
+request.AddParameter(<span class="hljs-string">"application/json"</span>, body,  ParameterType.RequestBody);
+IRestResponse response = client.Execute(request);
+Console.WriteLine(response.Content);
+                                                </code>
+                                            </pre>
+                                            <pre id="8_java" class=" 8_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-java line-numbers hljs">
+<span class="hljs-type">OkHttpClient</span> <span class="hljs-variable">client</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OkHttpClient</span>().newBuilder()
+.build();
+<span class="hljs-type">MediaType</span> <span class="hljs-variable">mediaType</span> <span class="hljs-operator">=</span> MediaType.parse(<span class="hljs-string">"application/json"</span>);
+<span class="hljs-type">RequestBody</span> <span class="hljs-variable">body</span> <span class="hljs-operator">=</span> RequestBody.create(mediaType, <span class="hljs-string">"{\"ApiKey\": \"string\",\"UserTraceIds\": [0]}"</span>);
+<span class="hljs-type">Request</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Request</span>.Builder()
+.url(<span class="hljs-string">"http://api.sms-webservice.com/api/V3/StatusByUserTraceId"</span>)
+.method(<span class="hljs-string">"POST"</span>, body)
+.addHeader(<span class="hljs-string">"Content-Type"</span>, <span class="hljs-string">"application/json"</span>)
+.build();
+<span class="hljs-type">Response</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> client.newCall(request).execute();
+                                                </code>
+                                            </pre>
+                                            <pre id="8_js" class=" 8_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-py line-numbers hljs language-python">
+<span class="hljs-keyword">import</span> requests
+
+url = <span class="hljs-string">"https://api.sms-webservice.com/api/V3/StatusByUserTraceId"</span>
+
+payload = {
+    <span class="hljs-string">"ApiKey"</span>: <span class="hljs-string">"your_api_key"</span>,
+    <span class="hljs-string">"UserTraceIds"</span>: [
+        <span class="hljs-number">123456789</span> 
+    ]
+}
+
+headers = {
+    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> 
+}
+
+<span class="hljs-keyword">try</span>:
+    response = requests.post(url, headers=headers, json=payload)
+    response.raise_for_status()  
+    <span class="hljs-built_in">print</span>(response.text)
+<span class="hljs-keyword">except</span> requests.exceptions.HTTPError <span class="hljs-keyword">as</span> err:
+    <span class="hljs-built_in">print</span>(err)
+
+                                                </code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- متد نهم -->
+                        <div class="row method-content" id="AccountInfo">
+                            <div class="col-md-7 pb-5 col-second p-3">
+                                <div class="container">
+                                    <div class="row">
+                                        <h3>
+                                            متد دریافت مقدار اعتبار و لیست خطوط ارسال کننده فعال در
+                    پنل (AccountInfo)
+                                        </h3>
+                                        <p>
+                                            در صورتیکه بخواهید از مقدار اعتبار باقیمانده در پنل و یا
+                    لیست خطوط فعال در پنل خود گزارشی داشته
+                    باشید، ازین متد می توانید استفاده نمایید، برای فراخوانی
+                    این متد کافیست کد شناسه پنل خود را در بدنه
+                    متد ارسال نمایید.
+                                        </p>
+                                        <div class="container">
+                                            <div class="row text-end method-box p-2 py-3">
+                                                <button class="btn btn-dark btn-sm copy-button in-link" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <p class="webservice-link pb-sm-0 pb-5 post-method m-0">
+                                                    https://api.sms-webservice.com/api/V3/AccountInfo
+                                                </p>
+                                            </div>
+                                            <br>
+                                            <h3>پارامتر های ورودی</h3>
+                                            <p>
+                                                این متد نیز post بوده و پارامترهای ورودی از طریق بدنه
+                      متد ارسال میشوند، بدنه متد شامل شناسه پنل و
+                      لیستی از شناسه پیامک های ارسالی که قبلا توسط سیستم شما
+                      ایجاد شده و به سامانه ارسال شده، می باشد.
+                                            </p>
+                                            <div class="row text-center method-box mt-3 p-2
+                        collapsible" data-bs-toggle="collapse" data-bs-target="#ninecollapseone" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-6">کلید اختصاصی هر کاربر</div>
+                                                <div class="col-6 "> ApiKey
+                                                    <span class="type-param">
+                                                        STRING
+                                                    </span>
+                                                    <span class="required">
+                                                        Required
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2 content" id="ninecollapseone">
+                                                کلید اختصاصی هر کاربر که در سامانه ایجاد می شود و شناسه
+                      کاربر برای دسترسی به پنل می باشد
+                                            </div>
+                                            <br>
+                                            <!-- ---------------خروجی ها--------------- -->
+                                            <div class="row mt-3">
+                                                <div class="col-6">
+                                                    <h3>مقادیر موجود در فیلد Result</h3>
+                                                </div>
+                                                <div class="col-6 text-end px-4 pos-relative d-flex
+                          align-items-center ">
+                                                    <p class="response-text">200
+                                                        <span class="type-param">
+                                                            OBJECT
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <p>
+                                                پاسخ این متد شامل لیستی است که به ازای هر UserTraceId ،
+                      id و وضعیت پیام ارسالی را نمایش می دهد، ،
+                      لیست کامل وضعیت هایی که به ازای این درخواست ممکن است
+                      دریافت نمایید، در جدول انتهای این سند موجود
+                      است.
+                                            </p>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#ninecollapsetwo" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">Credit
+                                                    <span class="type-param">
+                                                        LONG
+                                                    </span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="ninecollapsetwo">
+                                                مقدار اعتبار موجود در پنل
+                                            </div>
+                                            <div class="row text-center method-box mt-3 p-2" data-bs-toggle="collapse" data-bs-target="#ninecollapsethree" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-12 ">AvailableSenders
+                                                    <span class="type-param">ARRAY OF LONG</span>
+                                                    <i class="bi bi-chevron-down"></i>
+                                                </div>
+                                            </div>
+                                            <div class="collapse description-collapse p-2" id="ninecollapsethree">
+                                                لیست شماره های ارسال کننده فعال در پنل
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 pb-5 col-third">
+                                <div class="container">
+                                    <div class="row p-3">
+                                        <h3 class="text-light">کد آماده</h3>
+                                        <select name="codeType" id="9_codeType" onchange="showCode(9)">
+                                            <option value="9_php">PHP</option>
+                                            <option value="9_csharp">C#</option>
+                                            <option value="9_java">JAVA</option>
+                                            <option value="9_js">PYTHON</option>
+                                        </select>
+                                        <!-- <span class="text-light">نمونه کد</span> -->
+                                        <div class="code-box container bg-inside-code rounded mt-3
+                      text-end text-light p-4 text-small">
+                                            <pre id="9_php" class=" 9_code active">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-php line-numbers hljs">
+<span class="hljs-variable">$curl</span> = <span class="hljs-title function_ invoke__">curl_init</span>();
+
+<span class="hljs-title function_ invoke__">curl_setopt_array</span>(<span class="hljs-variable">$curl</span>, <span class="hljs-keyword">array</span>(
+CURLOPT_URL =&gt; <span class="hljs-string">'http://api.sms-webservice.com/api/V3/AccountInfo'</span>,
+CURLOPT_RETURNTRANSFER =&gt; <span class="hljs-literal">true</span>,
+CURLOPT_ENCODING =&gt; <span class="hljs-string">''</span>,
+CURLOPT_MAXREDIRS =&gt; <span class="hljs-number">10</span>,
+CURLOPT_TIMEOUT =&gt; <span class="hljs-number">0</span>,
+CURLOPT_FOLLOWLOCATION =&gt; <span class="hljs-literal">true</span>,
+CURLOPT_HTTP_VERSION =&gt; CURL_HTTP_VERSION_1_1,
+CURLOPT_CUSTOMREQUEST =&gt; <span class="hljs-string">'POST'</span>,
+CURLOPT_POSTFIELDS =&gt;<span class="hljs-string">'{"ApiKey": "123456"}'</span>,
+CURLOPT_HTTPHEADER =&gt; <span class="hljs-keyword">array</span>(
+<span class="hljs-string">'Content-Type: application/json'</span>
+),
+));
+
+<span class="hljs-variable">$response</span> = <span class="hljs-title function_ invoke__">curl_exec</span>(<span class="hljs-variable">$curl</span>);
+
+<span class="hljs-title function_ invoke__">curl_close</span>(<span class="hljs-variable">$curl</span>);
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$response</span>;
+                                                </code>
+                                            </pre>
+                                            <pre id="9_csharp" class=" 9_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-csharp line-numbers hljs">
+<span class="hljs-keyword">var</span> client = <span class="hljs-keyword">new</span> RestClient(<span class="hljs-string">"http://api.sms-webservice.com/api/V3/AccountInfo"</span>);
+client.Timeout = <span class="hljs-number">-1</span>;
+<span class="hljs-keyword">var</span> request = <span class="hljs-keyword">new</span> RestRequest(Method.POST);
+request.AddHeader(<span class="hljs-string">"Content-Type"</span>, <span class="hljs-string">"application/json"</span>);
+<span class="hljs-keyword">var</span> body = <span class="hljs-string">@"{""ApiKey"": ""123456""}"</span>;
+request.AddParameter(<span class="hljs-string">"application/json"</span>, body,  ParameterType.RequestBody);
+IRestResponse response = client.Execute(request);
+Console.WriteLine(response.Content);
+                                                </code>
+                                            </pre>
+                                            <pre id="9_java" class=" 9_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-java line-numbers hljs">
+<span class="hljs-type">OkHttpClient</span> <span class="hljs-variable">client</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OkHttpClient</span>().newBuilder()
+.build();
+<span class="hljs-type">MediaType</span> <span class="hljs-variable">mediaType</span> <span class="hljs-operator">=</span> MediaType.parse(<span class="hljs-string">"application/json"</span>);
+<span class="hljs-type">RequestBody</span> <span class="hljs-variable">body</span> <span class="hljs-operator">=</span> RequestBody.create(mediaType, <span class="hljs-string">"{\"ApiKey\": \"123456\"}"</span>);
+<span class="hljs-type">Request</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Request</span>.Builder()
+.url(<span class="hljs-string">"http://api.sms-webservice.com/api/V3/AccountInfo"</span>)
+.method(<span class="hljs-string">"POST"</span>, body)
+.addHeader(<span class="hljs-string">"Content-Type"</span>, <span class="hljs-string">"application/json"</span>)
+.build();
+<span class="hljs-type">Response</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> client.newCall(request).execute();
+                                                </code>
+                                            </pre>
+                                            <pre id="9_js" class=" 9_code deactive">                                                <button class="btn btn-light btn-sm copy-button" onclick="coyCodeToClipboard(this)">کپی</button>
+                                                <code class="language-py line-numbers hljs language-python">
+<span class="hljs-keyword">import</span> requests
+
+url = <span class="hljs-string">"https://api.sms-webservice.com/api/V3/AccountInfo"</span>
+
+payload = {
+    <span class="hljs-string">"ApiKey"</span>: <span class="hljs-string">"your_api_key"</span>
+}
+
+headers = {
+    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> 
+}
+
+<span class="hljs-keyword">try</span>:
+    response = requests.post(url, headers=headers, json=payload)
+    response.raise_for_status() 
+    <span class="hljs-built_in">print</span>(response.text)
+<span class="hljs-keyword">except</span> requests.exceptions.HTTPError <span class="hljs-keyword">as</span> err:
+    <span class="hljs-built_in">print</span>(err)
+
+                                                </code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="./Documentation_files/bootstrap.bundle.min.js"></script>
+        <!-- <script src="./assets/js/bootstrap.min.js"></script> -->
+        <script src="./Documentation_files/bootstrap.esm.min.js"></script>
+        <script src="./Documentation_files/custom.js"></script>
+        <!-- <script src="./assets/js/prism.js"></script> -->
+        <script src="./Documentation_files/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+    
+
+</body></html>

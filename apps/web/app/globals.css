@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Vazirmatn — self-hosted (vendored in /public/fonts). NEVER load from Google Fonts/CDN. */
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('/fonts/Vazirmatn-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('/fonts/Vazirmatn-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('/fonts/Vazirmatn-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --paper: #faf6ec;
+  --paper-2: #f2ebd9;
+  --paper-edge: #e7dec4;
+  --card: #ffffff;
+  --card-soft: #fdfbf5;
+  --ink: #1b1b1f;
+  --ink-2: #3b3a3f;
+  --ink-3: #6a6766;
+  --ink-4: #9c9690;
+  --saffron: #e8a53d;
+  --saffron-deep: #b97a1e;
+  --saffron-soft: #fbeacb;
+  --slate: #1f2937;
+  --sage: #6b8b6e;
+  --ruby: #b0413e;
+  --indigo: #455a8f;
+  --font: 'Vazirmatn', system-ui, -apple-system, sans-serif;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: var(--font);
+  background: var(--paper);
+  color: var(--ink);
+}

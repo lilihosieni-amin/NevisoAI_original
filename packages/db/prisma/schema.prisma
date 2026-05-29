@@ -1,0 +1,32 @@
+// Neviso database schema.
+//
+// Phase 0 establishes the Postgres connection and enables the `pgvector`
+// extension (needed later for NoteChunk embeddings). Application models are
+// added in the phase that first needs them (working agreement) — see the
+// full target schema in .claude/skills/backend.md §3.
+
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../generated/client"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [vector]
+}
+
+/// Foundational key/value application settings (ARD §3 / skill §3).
+/// The earliest config the platform reads (e.g. "otp.channels"). Defined in
+/// Phase 0 because Prisma requires at least one model to generate a client;
+/// it is the lowest-level, non-feature table in the schema. Phase 1 only
+/// seeds rows into it — the model is already here.
+model AppSetting {
+  key         String   @id
+  value       Json
+  updatedById String?
+  updatedAt   DateTime @updatedAt
+
+  @@map("app_settings")
+}

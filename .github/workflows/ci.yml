@@ -1,0 +1,89 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Service-container connections (override the test-env defaults).
+  DATABASE_URL: postgresql://neviso:neviso@localhost:5432/neviso_test?schema=public
+  REDIS_URL: redis://localhost:6379
+  # Minimal ARD §14 secrets so ConfigModule validation passes in CI.
+  JWT_ACCESS_SECRET: ci-access-secret
+  JWT_REFRESH_SECRET: ci-refresh-secret
+  JWT_ADMIN_ACCESS_SECRET: ci-admin-access-secret
+  JWT_ADMIN_REFRESH_SECRET: ci-admin-refresh-secret
+  JWT_ADMIN_CHALLENGE_SECRET: ci-admin-challenge-secret
+  SMS_WEBSERVICE_BASE_URL: https://api.sms-webservice.com/api/V3
+  BALE_BASE_URL: https://safir.bale.ai/api/v2
+  ARVAN_ENDPOINT: https://s3.ir-thr-at1.arvanstorage.ir
+  METIS_BASE_URL: https://api.metisai.ir
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: neviso
+          POSTGRES_PASSWORD: neviso
+          POSTGRES_DB: neviso_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U neviso -d neviso_test"
+          --health-interval 5s --health-timeout 5s --health-retries 20
+      redis:
+        image: redis:7-alpine
+        ports: ['6379:6379']
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s --health-timeout 5s --health-retries 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Prisma client
+        run: npm run db:generate
+
+      - name: Apply migrations to test DB
+        run: npm run migrate:deploy --workspace=@neviso/db
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Format check
+        run: npm run format:check
+
+      - name: Unit + integration tests
+        run: npm test
+
+      - name: Build all apps
+        run: npm run build
+
+      - name: No-foreign-CDN check
+        run: npm run check:no-cdn
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: e2e tests
+        run: npm run test:e2e
+        env:
+          CI: 'true'
