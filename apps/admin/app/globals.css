@@ -53,3 +53,72 @@ body {
   background: var(--paper);
   color: var(--ink);
 }
+
+/* ── Admin utility classes (desktop-first backoffice) ─────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  font: 500 15px/1.55 var(--font);
+  cursor: pointer;
+}
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.btn-primary {
+  background: var(--slate);
+  color: var(--paper);
+}
+.btn-accent {
+  background: var(--saffron);
+  color: var(--ink);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--ink-2);
+}
+.btn-block {
+  width: 100%;
+}
+.field {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--paper-edge);
+  background: var(--card);
+  color: var(--ink);
+  font: 400 15px/1.6 var(--font);
+}
+.field:focus {
+  outline: none;
+  border-color: var(--saffron);
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(31, 27, 18, 0.08);
+}
+.field-error {
+  color: var(--ruby);
+  font: 400 13px/1.5 var(--font);
+}
+.field-note {
+  color: var(--ink-3);
+  font: 400 13px/1.5 var(--font);
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font: 600 11px/1.4 var(--font);
+  background: var(--paper-2);
+  color: var(--ink-2);
+}

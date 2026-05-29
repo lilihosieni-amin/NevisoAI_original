@@ -18,6 +18,9 @@ export default function HomePage() {
       <p style={{ color: 'var(--ink-3)', fontSize: 15 }}>
         دستیار هوشمند جزوه‌نویسی — به‌زودی در دسترس.
       </p>
+      <a href="/login" className="btn btn-accent">
+        ورود / ثبت‌نام
+      </a>
       <a href="/health" style={{ color: 'var(--saffron-deep)', fontWeight: 500 }}>
         بررسی سلامت سرویس
       </a>

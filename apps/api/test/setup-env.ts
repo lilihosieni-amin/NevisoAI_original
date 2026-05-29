@@ -17,6 +17,10 @@ const defaults: Record<string, string> = {
   BALE_BASE_URL: 'https://safir.bale.ai/api/v2',
   ARVAN_ENDPOINT: 'https://s3.ir-thr-at1.arvanstorage.ir',
   METIS_BASE_URL: 'https://api.metisai.ir',
+  // Relax the admin-login rate limit in tests: the test Redis persists between
+  // local re-runs, so a 5/15-min cap would trip on repeated runs (CI Redis is
+  // fresh per job, so the production default still applies there).
+  ADMIN_LOGIN_RATE_MAX: '100000',
 };
 
 for (const [key, value] of Object.entries(defaults)) {

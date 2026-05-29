@@ -30,6 +30,8 @@ export const validationSchema = Joi.object({
   JWT_ADMIN_REFRESH_EXPIRES: Joi.string().default('8h'),
   ADMIN_OTP_TTL: Joi.number().default(300),
   ADMIN_LOGIN_CHALLENGE_TTL: Joi.number().default(300),
+  ADMIN_LOGIN_RATE_MAX: Joi.number().default(5),
+  ADMIN_LOGIN_RATE_WINDOW: Joi.number().default(900),
   IMPERSONATION_TOKEN_TTL: Joi.number().default(1800),
   ADMIN_WEB_ORIGIN: Joi.string().uri().default('https://admin.nevisoai.ir'),
   ADMIN_IP_ALLOWLIST: Joi.string().allow('').default(''),
