@@ -1,7 +1,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "rootDir": "src"
+    "rootDir": "src",
+    // Nest's `deleteOutDir: true` wipes dist on every (re)build; with TS
+    // incremental on (base config) the next compile sees a stale tsbuildinfo
+    // and emits nothing → "Cannot find module dist/main". Disable incremental
+    // for the emit build so it always produces a full dist.
+    "incremental": false
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist", "test", "**/*.spec.ts", "**/*.int-spec.ts"]
