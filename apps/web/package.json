@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.11.8",
+    "browser-image-compression": "^2.0.2",
     "@neviso/errors": "workspace:*",
     "@neviso/jalali": "workspace:*",
     "@neviso/phone": "workspace:*",

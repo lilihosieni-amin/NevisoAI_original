@@ -88,6 +88,10 @@ export const envSchema = z.object({
   ZARINPAL_MERCHANT_ID: z.string().optional().default(''),
   ZARINPAL_SANDBOX: bool.default(true),
 
+  // Storage — signed cover-image read URL lifetime (cached + reused so the
+  // browser can disk-cache covers across refreshes). 24h default.
+  COVER_URL_TTL: intFromEnv(86400),
+
   // Credits
   FREE_CREDIT_GRANT: intFromEnv(60),
   CREDIT_COST_PER_AUDIO_MINUTE: intFromEnv(1),

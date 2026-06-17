@@ -46,6 +46,84 @@ export function SparkIcon({ size = 18 }: { size?: number }) {
   );
 }
 
+function Outline({
+  size = 18,
+  stroke,
+  children,
+}: {
+  size?: number;
+  stroke?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={stroke ?? 'currentColor'}
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{ flexShrink: 0 }}
+    >
+      {children}
+    </svg>
+  );
+}
+
+export function NotebookIcon({ size = 18, stroke }: { size?: number; stroke?: string }) {
+  return (
+    <Outline size={size} stroke={stroke}>
+      <path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6.5A1.5 1.5 0 0 1 5 19.5z" />
+      <path d="M5 7h2M5 11h2M5 15h2M5 19h2" />
+    </Outline>
+  );
+}
+
+export function PlusIcon({ size = 18 }: { size?: number }) {
+  return (
+    <Outline size={size}>
+      <path d="M12 5v14M5 12h14" />
+    </Outline>
+  );
+}
+
+export function ImageIcon({ size = 18 }: { size?: number }) {
+  return (
+    <Outline size={size}>
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <circle cx="9" cy="10" r="1.5" />
+      <path d="m21 16-5-5L7 20" />
+    </Outline>
+  );
+}
+
+export function TrashIcon({ size = 18 }: { size?: number }) {
+  return (
+    <Outline size={size}>
+      <path d="M4 7h16M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M6 7v13a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7M10 11v6M14 11v6" />
+    </Outline>
+  );
+}
+
+export function PencilIcon({ size = 18 }: { size?: number }) {
+  return (
+    <Outline size={size}>
+      <path d="M12 20h9" />
+      <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z" />
+    </Outline>
+  );
+}
+
+export function XIcon({ size = 18 }: { size?: number }) {
+  return (
+    <Outline size={size}>
+      <path d="M6 6l12 12M18 6L6 18" />
+    </Outline>
+  );
+}
+
 export function BellIcon({ size = 18 }: { size?: number }) {
   return (
     <svg

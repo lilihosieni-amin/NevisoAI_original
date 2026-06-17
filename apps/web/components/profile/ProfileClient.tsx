@@ -80,15 +80,8 @@ export function ProfileClient() {
 
   return (
     <div
-      style={{
-        padding: '28px 32px',
-        display: 'grid',
-        gridTemplateColumns: '240px 1fr',
-        gap: 24,
-        maxWidth: 1100,
-        margin: '0 auto',
-      }}
-      className="profile-grid"
+      className="grid grid-cols-1 gap-6 px-4 py-6 sm:grid-cols-[240px_1fr] sm:px-8"
+      style={{ maxWidth: 1100, margin: '0 auto' }}
     >
       {/* Sidebar */}
       <aside

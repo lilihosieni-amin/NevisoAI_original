@@ -118,7 +118,7 @@ AI tools accessible to Iranian students are either not available in Persian, lac
 > As a student, I want to organize my notes into subject folders so that I can find them easily.
 
 **Acceptance Criteria:**
-- [ ] The user can create a new folder with a name and an optional cover image
+- [ ] The user can create a new folder with a name, a spine color, and an optional cover image
 - [ ] Selecting a folder during upload is mandatory
 - [ ] Notes can be moved between folders
 - [ ] Folders are displayed as cards or a list in the user dashboard
@@ -327,7 +327,7 @@ AI tools accessible to Iranian students are either not available in Persian, lac
 - **FR-10:** Selecting a folder during upload is mandatory.
 - **FR-11:** The user can create a new folder during the upload flow, with a name and an optional cover image.
 - **FR-12:** The system must allow notes to be moved between folders.
-- **FR-13:** Each folder can have a name and an optional cover image.
+- **FR-13:** Each folder has a name, a spine color (chosen from a preset palette), and an optional cover image.
 
 ### Editor
 - **FR-14:** The rich text editor must include: font change, bold, italic, underline, text color, highlight, ordered/unordered lists, tables, headings, text alignment (left/right/center), and text direction (LTR/RTL). The user must also be able to edit the note's title and the note's date (the date the note refers to, independent of the upload/creation date).

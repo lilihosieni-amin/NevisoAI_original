@@ -28,6 +28,8 @@ export enum ErrorCode {
   // Domain resources
   NOTE_NOT_FOUND = 'NOTE_NOT_FOUND',
   FOLDER_NOT_FOUND = 'FOLDER_NOT_FOUND',
+  FOLDER_NOT_EMPTY = 'FOLDER_NOT_EMPTY',
+  INVALID_FOLDER_NAME = 'INVALID_FOLDER_NAME',
 
   // Processing
   PROCESSING_FAILED = 'PROCESSING_FAILED',
@@ -82,6 +84,9 @@ export const persianCatalog: Record<ErrorCode, string> = {
     'ارسال کد در حال حاضر ممکن نیست. لطفاً کمی بعد دوباره تلاش کنید.',
   [ErrorCode.NOTE_NOT_FOUND]: 'این جزوه پیدا نشد.',
   [ErrorCode.FOLDER_NOT_FOUND]: 'این پوشه پیدا نشد.',
+  [ErrorCode.FOLDER_NOT_EMPTY]:
+    'این پوشه خالی نیست. ابتدا جزوه‌های آن را حذف یا به پوشهٔ دیگری منتقل کنید.',
+  [ErrorCode.INVALID_FOLDER_NAME]: 'نام پوشه باید بین ۱ تا ۴۰ نویسه باشد.',
   [ErrorCode.PROCESSING_FAILED]:
     'پردازش جزوه ناموفق بود. اعتبار شما بازگردانده شد. می‌توانید فایل را دوباره بارگذاری کنید.',
   [ErrorCode.NOTE_INPUT_TOO_LONG]:

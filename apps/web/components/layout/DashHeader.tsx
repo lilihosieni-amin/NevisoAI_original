@@ -17,7 +17,7 @@ export function DashHeader() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '16px 32px',
+        padding: '14px clamp(16px, 4vw, 32px)',
         borderBottom: '1px solid var(--paper-edge)',
         background: 'var(--paper)',
       }}

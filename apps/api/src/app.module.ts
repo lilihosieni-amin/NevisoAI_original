@@ -5,6 +5,7 @@ import { AppConfigModule } from './config/app-config.module';
 import { AppConfigService } from './config/app-config.service';
 import { CommonModule } from './common/common.module';
 import { AuthModule } from './auth/auth.module';
+import { FoldersModule } from './folders/folders.module';
 import { HealthController } from './health/health.controller';
 import { AppResolver } from './app.resolver';
 import { formatError } from './common/errors/format-error';
@@ -14,6 +15,7 @@ import { formatError } from './common/errors/format-error';
     AppConfigModule,
     CommonModule,
     AuthModule,
+    FoldersModule,
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
       inject: [AppConfigService],

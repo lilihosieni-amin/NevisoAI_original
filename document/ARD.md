@@ -263,6 +263,7 @@ model Folder {
   userId       String
   name         String
   coverUrl     String?
+  color        String? // spine color, hex from a preset palette
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
 
@@ -626,17 +627,20 @@ type Mutation {
 input CreateFolderInput {
   name: String!
   coverUrl: String
+  color: String
 }
 
 input UpdateFolderInput {
   name: String
   coverUrl: String
+  color: String
 }
 
 type Folder {
   id: ID!
   name: String!
   coverUrl: String
+  color: String
   createdAt: DateTime!
   updatedAt: DateTime!
   notes: [Note!]!

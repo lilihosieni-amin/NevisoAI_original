@@ -247,7 +247,7 @@ Nothing technical ever reaches the user (ARD §16): all user-facing errors are P
 
 # Step 3 — Folder Management
 
-**Goal:** A user creates subject folders (name + optional cover image), sees them on the dashboard, edits/deletes them, and (later) moves notes between them.
+**Goal:** A user creates subject folders (name + spine color + optional cover image), sees them on the dashboard, edits/deletes them, and (later) moves notes between them.
 
 **Refs:** US-05; FR-10..13; ARD §5.3.
 
@@ -266,7 +266,7 @@ Nothing technical ever reaches the user (ARD §16): all user-facing errors are P
 ### Frontend (web)
 **Build**
 - Dashboard folder grid/list (cards with cover + name + note count).
-- "New folder" modal: name + optional cover (image compressed client-side via `browser-image-compression`, presign → PUT → save).
+- "New folder" modal: name + spine color (preset palette) + optional cover (image compressed client-side via `browser-image-compression`, presign → PUT → save).
 - Edit/rename, delete with confirm prompt.
 
 **Key files:** `apps/web/app/(app)/dashboard/page.tsx`, `apps/web/components/folders/*`.
