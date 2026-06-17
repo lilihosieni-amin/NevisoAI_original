@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<title>Neviso — UI Exploration</title>
+<meta name="viewport" content="width=1400"/>
+<link rel="stylesheet" href="styles/tokens.css"/>
+<style>
+  body { background: #EDE6D2; }
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#1F2937">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#1F2937"/>
+    <g transform="translate(470, 250)">
+      <rect x="0" y="0" width="200" height="280" rx="14" fill="#FAF6EC" stroke="#1B1B1F" stroke-width="8"/>
+      <rect x="180" y="0" width="24" height="280" rx="8" fill="#E8A53D" stroke="#1B1B1F" stroke-width="8"/>
+      <path d="M40 80 H150 M40 130 H120 M40 180 H140 M40 230 H100" stroke="#1B1B1F" stroke-width="9" stroke-linecap="round"/>
+      <path d="M250 40 l10 22 22 10 -22 10 -10 22 -10 -22 -22 -10 22 -10 z" fill="#E8A53D" stroke="#1B1B1F" stroke-width="5" stroke-linejoin="round"/>
+    </g>
+    <text x="600" y="600" font-family="Vazirmatn, sans-serif" font-size="64" font-weight="700" fill="#FAF6EC" text-anchor="middle">نِویسو</text>
+  </svg>
+</template>
+<div id="root"></div>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="screens/placeholder.jsx"></script>
+<script type="text/babel" src="screens/icons.jsx"></script>
+<script type="text/babel" src="screens/00-foundation.jsx"></script>
+<script type="text/babel" src="screens/01-landing.jsx"></script>
+<script type="text/babel" src="screens/02-auth.jsx"></script>
+<script type="text/babel" src="screens/03-dashboard.jsx"></script>
+<script type="text/babel" src="screens/04-folder.jsx"></script>
+<script type="text/babel" src="screens/05-upload.jsx"></script>
+<script type="text/babel" src="screens/06-editor.jsx"></script>
+<script type="text/babel" src="screens/07-chatbot.jsx"></script>
+<script type="text/babel" src="screens/08-notifications.jsx"></script>
+<script type="text/babel" src="screens/09-plans.jsx"></script>
+<script type="text/babel" src="screens/10-profile.jsx"></script>
+<script type="text/babel" src="screens/11-new-folder.jsx"></script>
+<script type="text/babel" src="screens/m-shell.jsx"></script>
+<script type="text/babel" src="screens/m-screens-1.jsx"></script>
+<script type="text/babel" src="screens/m-screens-2.jsx"></script>
+
+<script type="text/babel" data-presets="react">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accent": "#E8A53D",
+  "font": "Vazirmatn"
+}/*EDITMODE-END*/;
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  React.useEffect(() => {
+    document.documentElement.style.setProperty('--saffron', t.accent);
+    // derived deeper shade
+    document.documentElement.style.setProperty('--font', `'${t.font}', system-ui, sans-serif`);
+  }, [t.accent, t.font]);
+
+  return (
+    <>
+      <DesignCanvas>
+
+        <DCSection id="foundation" title="۰۰ · بنیان طراحی" subtitle="رنگ، تایپ، استعارهٔ شیرازهٔ دفترچه، اجزای پایه">
+          <DCArtboard id="foundation-main" label="Design system overview" width={1180} height={720}>
+            <Foundation/>
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="landing" title="۰۱ · صفحهٔ فرود (Landing)" subtitle="معرفی محصول، ویژگی‌ها، CTA">
+          <DCArtboard id="landing-desktop" label="Desktop · 1280px" width={1280} height={1900}>
+            <LandingDesktop/>
+          </DCArtboard>
+          <DCArtboard id="landing-mobile" label="Mobile · 390px" width={390} height={1480}>
+            <LandingMobile/>
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="auth" title="۰۲ · ورود (OTP + رمز اختیاری)" subtitle="ورود اول با OTP، بعد رمز اختیاری از پروفایل">
+          <DCArtboard id="auth-mobile-phone" label="Mobile — phone step" width={390} height={760}>
+            <AuthMobile/>
+          </DCArtboard>
+          <DCArtboard id="auth-desktop" label="Desktop — split" width={1100} height={720}>
+            <AuthDesktop/>
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="dashboard" title="۰۳ · داشبورد" subtitle="پوشه‌ها به‌سبک کاور با شیرازهٔ رنگی">
+          <DCArtboard id="dash-b" label="Dashboard · گرید کارت" width={1280} height={1000}>
+            <DashboardB/>
+          </DCArtboard>
+          <DCArtboard id="dash-mobile" label="Mobile" width={390} height={780}>
+            <MDashboard/>
+          </DCArtboard>
+          <DCArtboard id="dash-newfolder" label="مودال پوشهٔ جدید" width={1280} height={1000}>
+            <NewFolderInContext/>
+          </DCArtboard>
+          <DCArtboard id="dash-newfolder-m" label="Mobile · شیت پوشهٔ جدید" width={390} height={780}>
+            <MNewFolder/>
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="folder" title="۰۴ · جزئیات پوشه" subtitle="لیست جزوه‌ها، فیلتر، اکشن‌های پوشه">
+          <DCArtboard id="folder-desktop" label="Desktop" width={1280} height={860}>
+            <FolderDetail/>
+          </DCArtboard>
+          <DCArtboard id="folder-mobile" label="Mobile" width={390} height={780}>
+            <MFolder/>
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="upload" title="۰۵ · آپلود و پردازش" subtitle="آپلود صدا/عکس، انتخاب پوشه و تاریخ، حالت پردازش با درخشش زعفرانی">
+          <DCArtboard id="upload-step1" label="Step 1 · انتخاب فایل" width={780} height={920}>
+            <Upload1/>
+          </DCArtboard>
+          <DCArtboard id="upload-step2" label="Step 2 · پوشه و تاریخ" width={780} height={760}>
+            <Upload2/>
+          </DCArtboard>
+          <DCArtboard id="upload-progress" label="Step 3 · در حال آپلود" width={780} height={700}>
+            <UploadProgress/>
+          </DCArtboard>
+          <DCArtboard id="upload-processing" label="Step 4 · آپلود کامل شد" width={780} height={680}>
+            <UploadProcessing/>
+          </DCArtboard>
+          <DCArtboard id="upload-mobile" label="Mobile · Step 1 فایل" width={390} height={820}>
+            <MUpload/>
+          </DCArtboard>
+          <DCArtboard id="upload-mobile-2" label="Mobile · Step 2 پوشه و تاریخ" width={390} height={820}>
+            <MUpload2/>
+          </DCArtboard>
+          <DCArtboard id="upload-mobile-progress" label="Mobile · در حال آپلود" width={390} height={680}>
+            <MUploadProgress/>
+          </DCArtboard>
+          <DCArtboard id="upload-mobile-proc" label="Mobile · آپلود کامل" width={390} height={620}>
+            <MProcessing/>
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="editor" title="۰۶ · ویرایشگر جزوه" subtitle="Rich text + پخش صدا — ستون متمرکز">
+          <DCArtboard id="editor-b" label="Desktop · ستون متمرکز" width={1280} height={1100}>
+            <EditorB/>
+          </DCArtboard>
+          <DCArtboard id="editor-mobile" label="Mobile" width={390} height={820}>
+            <MEditor/>
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="chatbot" title="۰۷ · چت‌بات با جزوه‌ها" subtitle="انتخاب پوشه، context کنترل‌پذیر، تاریخچه">
+          <DCArtboard id="chat-desktop" label="Desktop" width={1280} height={860}>
+            <ChatbotDesktop/>
+          </DCArtboard>
+          <DCArtboard id="chat-mobile" label="Mobile" width={390} height={780}>
+            <MChatbot/>
+          </DCArtboard>
+          <DCArtboard id="chat-mobile-sources" label="Mobile · منابع گفتگو" width={390} height={780}>
+            <MChatSources/>
+          </DCArtboard>
+          <DCArtboard id="chat-mobile-history" label="Mobile · تاریخچه" width={390} height={780}>
+            <MChatHistory/>
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="notifications" title="۰۸ · پنل اعلان‌ها" subtitle="اعلان‌های پردازش — موفق، ناموفق، خوانده‌نشده">
+          <DCArtboard id="notif-panel" label="Slide-in panel" width={420} height={780}>
+            <Notifications/>
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="plans" title="۰۹ · شارژ اعتبار" subtitle="فروش اعتبار — بدون اشتراک · درگاه ایرانی">
+          <DCArtboard id="plans-desktop" label="Desktop" width={1280} height={1040}>
+            <Plans/>
+          </DCArtboard>
+          <DCArtboard id="plans-mobile" label="Mobile" width={390} height={880}>
+            <MPlans/>
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="profile" title="۱۰ · پروفایل و تنظیمات">
+          <DCArtboard id="profile-desktop" label="Desktop" width={1280} height={900}>
+            <Profile/>
+          </DCArtboard>
+          <DCArtboard id="profile-mobile" label="Mobile" width={390} height={780}>
+            <MProfile/>
+          </DCArtboard>
+        </DCSection>
+
+      </DesignCanvas>
+
+      <TweaksPanel>
+        <TweakSection label="رنگ" />
+        <TweakColor label="رنگ زعفرانی" value={t.accent}
+          options={['#E8A53D', '#D97706', '#B0413E', '#6B8B6E', '#455A8F', '#7A5AE0']}
+          onChange={v => setTweak('accent', v)} />
+        <TweakSection label="فونت فارسی" />
+        <TweakRadio label="Font" value={t.font}
+          options={['Vazirmatn', 'Estedad', 'IRANSans']}
+          onChange={v => setTweak('font', v)} />
+      </TweaksPanel>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

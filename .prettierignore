@@ -1,9 +1,0 @@
-node_modules
-dist
-.next
-out
-coverage
-packages/db/generated
-**/*.html
-document/
-package-lock.json

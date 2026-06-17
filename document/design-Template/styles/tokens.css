@@ -1,0 +1,123 @@
+/* Neviso Design Tokens
+   Direction: Calm Academic × Modern Friendly
+   Warm paper, deep ink, saffron accent. Slightly skeuomorphic notebook
+   metaphor for folders. Vazirmatn for Persian RTL.
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* ───────── Color: surfaces ───────── */
+  --paper:        #FAF6EC; /* main app background — warm cream */
+  --paper-2:      #F2EBD9; /* hover surface, subtle band */
+  --paper-edge:   #E7DEC4; /* line separator on cream */
+  --card:         #FFFFFF; /* white surface */
+  --card-soft:    #FDFBF5; /* off-white card */
+  --ink:          #1B1B1F; /* primary text */
+  --ink-2:        #3B3A3F; /* secondary text */
+  --ink-3:        #6A6766; /* muted */
+  --ink-4:        #9C9690; /* placeholder, disabled */
+
+  /* ───────── Color: brand ───────── */
+  --saffron:      #E8A53D; /* primary accent */
+  --saffron-deep: #B97A1E;
+  --saffron-soft: #FBEACB;
+  --slate:        #1F2937; /* dark surfaces / headings */
+  --slate-2:      #2D3748;
+
+  /* ───────── Color: semantic ───────── */
+  --sage:         #6B8B6E; /* success / academic green */
+  --sage-soft:    #DFEAD9;
+  --ruby:         #B0413E; /* destructive */
+  --ruby-soft:    #F6DEDC;
+  --indigo:       #455A8F; /* info (subtle) */
+  --indigo-soft:  #DDE3F0;
+
+  /* ───────── Type ───────── */
+  --font: 'Vazirmatn', system-ui, -apple-system, sans-serif;
+
+  --t-display: 700 56px/1.1 var(--font);
+  --t-h1:      700 36px/1.15 var(--font);
+  --t-h2:      700 28px/1.2 var(--font);
+  --t-h3:      600 22px/1.3 var(--font);
+  --t-h4:      600 18px/1.35 var(--font);
+  --t-body:    400 15px/1.6 var(--font);
+  --t-body-md: 500 15px/1.55 var(--font);
+  --t-small:   400 13px/1.5 var(--font);
+  --t-xs:      500 11px/1.4 var(--font);
+
+  /* ───────── Radius ───────── */
+  --r-xs: 6px;
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+
+  /* ───────── Spacing ───────── */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+
+  /* ───────── Shadow ───────── */
+  --sh-1: 0 1px 2px rgba(31, 27, 18, 0.06);
+  --sh-2: 0 2px 8px rgba(31, 27, 18, 0.08), 0 1px 2px rgba(31, 27, 18, 0.04);
+  --sh-3: 0 12px 32px -8px rgba(31, 27, 18, 0.18), 0 4px 12px rgba(31, 27, 18, 0.06);
+  --sh-spine: 0 6px 16px -4px rgba(60, 40, 10, 0.22), inset -1px 0 0 rgba(0,0,0,0.04);
+}
+
+/* Paper-texture utility — subtle noise & grain via SVG */
+.paper-texture {
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(circle at 25% 35%, rgba(184, 140, 50, 0.045), transparent 40%),
+    radial-gradient(circle at 75% 65%, rgba(110, 90, 40, 0.04), transparent 45%);
+}
+
+/* Ruled lines (for "paper" backgrounds) */
+.paper-ruled {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 27px,
+    rgba(120, 95, 50, 0.08) 27px,
+    rgba(120, 95, 50, 0.08) 28px
+  );
+}
+
+/* ───────── Reset-ish ───────── */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: var(--font); color: var(--ink); }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+input, textarea { font-family: inherit; }
+
+/* ───────── Common components ───────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 18px; border-radius: var(--r-md);
+  font: var(--t-body-md); font-weight: 600;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.btn-primary { background: var(--ink); color: var(--paper); }
+.btn-primary:hover { background: var(--slate-2); }
+.btn-accent { background: var(--saffron); color: var(--ink); }
+.btn-accent:hover { background: #D6951F; }
+.btn-ghost { background: transparent; color: var(--ink); }
+.btn-ghost:hover { background: var(--paper-2); }
+.btn-outline { background: var(--card); color: var(--ink); border: 1px solid var(--paper-edge); }
+
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px; border-radius: 999px;
+  font: var(--t-xs); font-weight: 600;
+  background: var(--paper-2); color: var(--ink-2);
+}
+.chip-saffron { background: var(--saffron-soft); color: var(--saffron-deep); }
+.chip-sage    { background: var(--sage-soft);    color: #3E5A3F; }
+.chip-ruby    { background: var(--ruby-soft);    color: var(--ruby); }
+.chip-indigo  { background: var(--indigo-soft);  color: var(--indigo); }
