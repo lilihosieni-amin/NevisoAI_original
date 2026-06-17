@@ -47,6 +47,8 @@
 <script type="text/babel" src="screens/m-shell.jsx"></script>
 <script type="text/babel" src="screens/m-screens-1.jsx"></script>
 <script type="text/babel" src="screens/m-screens-2.jsx"></script>
+<script type="text/babel" src="screens/12-loading.jsx"></script>
+<script type="text/babel" src="screens/13-all-folders.jsx"></script>
 
 <script type="text/babel" data-presets="react">
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
@@ -73,7 +75,16 @@ function App() {
           </DCArtboard>
         </DCSection>
 
-        <DCSection id="landing" title="۰۱ · صفحهٔ فرود (Landing)" subtitle="معرفی محصول، ویژگی‌ها، CTA">
+        <DCSection id="loading" title="۰۱ · صفحهٔ بارگذاری (Loading)" subtitle="اسپلش برند هنگام باز شدن اپ — شیمر زعفرانی و حرکت ملایم">
+          <DCArtboard id="loading-desktop" label="Desktop" width={1280} height={780}>
+            <LoadingDesktop/>
+          </DCArtboard>
+          <DCArtboard id="loading-mobile" label="Mobile" width={390} height={780}>
+            <LoadingMobile/>
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="landing" title="۰۲ · صفحهٔ فرود (Landing)" subtitle="معرفی محصول، ویژگی‌ها، CTA">
           <DCArtboard id="landing-desktop" label="Desktop · 1280px" width={1280} height={1900}>
             <LandingDesktop/>
           </DCArtboard>
@@ -106,7 +117,16 @@ function App() {
           </DCArtboard>
         </DCSection>
 
-        <DCSection id="folder" title="۰۴ · جزئیات پوشه" subtitle="لیست جزوه‌ها، فیلتر، اکشن‌های پوشه">
+        <DCSection id="all-folders" title="۰۴ · همهٔ پوشه‌ها" subtitle="از «مشاهدهٔ همه» در داشبورد — کتابخانهٔ کامل پوشه‌ها">
+          <DCArtboard id="allfolders-desktop" label="Desktop" width={1280} height={920}>
+            <AllFolders/>
+          </DCArtboard>
+          <DCArtboard id="allfolders-mobile" label="Mobile" width={390} height={900}>
+            <MAllFolders/>
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="folder" title="۰۵ · جزئیات پوشه" subtitle="لیست جزوه‌ها، فیلتر، اکشن‌های پوشه">
           <DCArtboard id="folder-desktop" label="Desktop" width={1280} height={860}>
             <FolderDetail/>
           </DCArtboard>

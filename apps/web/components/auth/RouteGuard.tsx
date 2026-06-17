@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '../../lib/auth-store';
 import { refreshAccessToken } from '../../lib/apollo-client';
+import { LoadingScreen } from '../LoadingScreen';
 
 /**
  * Protects the authenticated app shell. With no in-memory access token it tries
@@ -31,20 +32,7 @@ export function RouteGuard({ children }: { children: React.ReactNode }) {
   }, [token, router]);
 
   if (!token && !checked) {
-    return (
-      <div
-        dir="rtl"
-        style={{
-          minHeight: '100vh',
-          display: 'grid',
-          placeItems: 'center',
-          color: 'var(--ink-3)',
-          font: 'var(--t-body)',
-        }}
-      >
-        در حال بارگذاری…
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   if (!token) return null; // redirecting to /login

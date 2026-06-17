@@ -11,8 +11,8 @@ const FA_MONTHS = [
 // JS getDay(): 0=Sun … 6=Sat → Persian weekday name.
 const FA_WEEKDAYS = ['یک‌شنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه', 'جمعه', 'شنبه'];
 
-/** Dashboard hero greeting + Jalali date + "new folder" CTA (template §03). */
-export function DashGreeting({ onNewFolder }: { onNewFolder: () => void }) {
+/** Dashboard hero greeting + Jalali date + "new note" CTA (template §03). */
+export function DashGreeting({ onNewNote }: { onNewNote: () => void }) {
   // Compute "today" after mount to avoid an SSR/CSR hydration mismatch.
   const [today, setToday] = useState<string>('');
   useEffect(() => {
@@ -40,8 +40,8 @@ export function DashGreeting({ onNewFolder }: { onNewFolder: () => void }) {
           سلام، آماده‌ای؟
         </h1>
       </div>
-      <button type="button" onClick={onNewFolder} className="btn btn-accent" style={{ padding: '12px 22px' }}>
-        <PlusIcon size={16} /> پوشهٔ جدید
+      <button type="button" onClick={onNewNote} className="btn btn-accent" style={{ padding: '12px 22px' }}>
+        <PlusIcon size={16} /> جزوهٔ جدید
       </button>
     </div>
   );

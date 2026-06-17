@@ -124,6 +124,49 @@ export function XIcon({ size = 18 }: { size?: number }) {
   );
 }
 
+/** Forward/continue arrow for RTL (points left). */
+export function FwdIcon({ size = 18 }: { size?: number }) {
+  return (
+    <Outline size={size}>
+      <path d="M19 12H5M11 6l-6 6 6 6" />
+    </Outline>
+  );
+}
+
+export function SearchIcon({ size = 18, stroke }: { size?: number; stroke?: string }) {
+  return (
+    <Outline size={size} stroke={stroke}>
+      <circle cx="11" cy="11" r="7" />
+      <path d="m20 20-3.5-3.5" />
+    </Outline>
+  );
+}
+
+export function FilterIcon({ size = 18 }: { size?: number }) {
+  return (
+    <Outline size={size}>
+      <path d="M3 5h18l-7 9v6l-4-2v-4z" />
+    </Outline>
+  );
+}
+
+export function ChevDown({ size = 18 }: { size?: number }) {
+  return (
+    <Outline size={size}>
+      <path d="M6 9l6 6 6-6" />
+    </Outline>
+  );
+}
+
+/** Small filled sparkle for chips / inline accents. */
+export function SparkSmall({ size = 12, stroke }: { size?: number; stroke?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 12 12" fill={stroke ?? 'currentColor'} style={{ flexShrink: 0 }}>
+      <path d="M6 0 7.2 4.8 12 6 7.2 7.2 6 12 4.8 7.2 0 6 4.8 4.8z" />
+    </svg>
+  );
+}
+
 export function BellIcon({ size = 18 }: { size?: number }) {
   return (
     <svg

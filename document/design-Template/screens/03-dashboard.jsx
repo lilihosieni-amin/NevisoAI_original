@@ -293,7 +293,7 @@ const FolderCardCover = ({ title, count, color }) => (
       <div style={{ font: 'var(--t-h4)', fontSize: 15, marginBottom: 4 }}>{title}</div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', font: 'var(--t-xs)', color: 'var(--ink-3)' }}>
         <span>{count} جزوه</span>
-        <span>← باز کن</span>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>باز کن <FwdIcon size={13}/></span>
       </div>
     </div>
   </div>

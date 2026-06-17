@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { toPersianDigits } from '@neviso/phone';
 import { DEFAULT_FOLDER_COLOR } from '../../lib/folder-colors';
-import { NotebookIcon, PencilIcon, TrashIcon } from '../icons';
+import { FwdIcon, NotebookIcon, PencilIcon, TrashIcon } from '../icons';
 
 export interface Folder {
   id: string;
@@ -126,7 +126,9 @@ export function FolderCard({
           }}
         >
           <span>{toPersianDigits(folder.noteCount)} جزوه</span>
-          <span className="hidden sm:inline">← باز کن</span>
+          <span className="hidden items-center gap-1 sm:inline-flex">
+            باز کن <FwdIcon size={13} />
+          </span>
         </div>
       </div>
     </div>
