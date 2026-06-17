@@ -1,12 +1,16 @@
 import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 import { Logger } from '@nestjs/common';
+import cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 import { AppConfigService } from './config/app-config.service';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
   const config = app.get(AppConfigService);
+
+  // Parse the HttpOnly refresh cookie so auth resolvers can read it (ARD §7.1).
+  app.use(cookieParser());
 
   // CORS whitelist (ARD §13): user app + admin app origins only.
   app.enableCors({

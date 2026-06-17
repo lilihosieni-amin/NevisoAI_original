@@ -15,6 +15,9 @@ export enum ErrorCode {
   INSUFFICIENT_CREDITS = 'INSUFFICIENT_CREDITS',
 
   // OTP / auth
+  INVALID_MOBILE = 'INVALID_MOBILE',
+  INVALID_CREDENTIALS = 'INVALID_CREDENTIALS',
+  WEAK_PASSWORD = 'WEAK_PASSWORD',
   OTP_EXPIRED = 'OTP_EXPIRED',
   OTP_INVALID = 'OTP_INVALID',
   OTP_TOO_SOON = 'OTP_TOO_SOON',
@@ -67,6 +70,9 @@ export const FALLBACK_ERROR_CODE = ErrorCode.INTERNAL_ERROR;
  */
 export const persianCatalog: Record<ErrorCode, string> = {
   [ErrorCode.INSUFFICIENT_CREDITS]: 'اعتبار شما کافی نیست. برای ادامه، اعتبار خود را شارژ کنید.',
+  [ErrorCode.INVALID_MOBILE]: 'شمارهٔ موبایل واردشده معتبر نیست.',
+  [ErrorCode.INVALID_CREDENTIALS]: 'شمارهٔ موبایل یا رمز عبور نادرست است.',
+  [ErrorCode.WEAK_PASSWORD]: 'رمز عبور باید حداقل ۸ کاراکتر باشد.',
   [ErrorCode.OTP_EXPIRED]: 'کد تأیید منقضی شده است. لطفاً دوباره کد دریافت کنید.',
   [ErrorCode.OTP_INVALID]: 'کد تأیید نادرست است. دوباره تلاش کنید.',
   [ErrorCode.OTP_TOO_SOON]: 'کمی صبر کنید و سپس برای دریافت کد جدید تلاش کنید.',

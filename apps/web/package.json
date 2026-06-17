@@ -15,6 +15,7 @@
     "@apollo/client": "^3.11.8",
     "@neviso/errors": "workspace:*",
     "@neviso/jalali": "workspace:*",
+    "@neviso/phone": "workspace:*",
     "@neviso/ui": "workspace:*",
     "graphql": "^16.9.0",
     "graphql-ws": "^5.16.0",
