@@ -1,0 +1,35 @@
+# Local infra for Neviso development (DEVELOPMENT_PLAN §1.2).
+# Postgres ships with the pgvector extension; the init migration enables it.
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: neviso-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: neviso
+      POSTGRES_PASSWORD: neviso
+      POSTGRES_DB: neviso
+    ports:
+      - '5432:5432'
+    volumes:
+      - neviso-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U neviso -d neviso']
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    container_name: neviso-redis
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  neviso-pgdata:

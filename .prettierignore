@@ -1,0 +1,9 @@
+node_modules
+dist
+.next
+generated
+coverage
+pnpm-lock.yaml
+document
+CLAUDE.md
+*.woff2

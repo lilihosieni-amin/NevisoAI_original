@@ -1,0 +1,378 @@
+// Neviso database schema — ARD §4.2 (verbatim).
+// All dates stored as canonical Gregorian/UTC; Jalali conversion is UI-only.
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── USER ───────────────────────────────────────────────
+model User {
+  id                String              @id @default(uuid())
+  mobile            String              @unique
+  passwordHash      String?
+  displayName       String?
+  avatarUrl         String?
+  creditBalance     Int                 @default(0)
+  freeCreditsGiven  Boolean             @default(false)
+  isActive          Boolean             @default(true) // DEPRECATED: superseded by `status`; kept for backward-compat
+  status            UserStatus          @default(ACTIVE)
+  statusReason      String? // reason set by an admin on suspend/ban
+  suspendedUntil    DateTime? // for time-bound suspensions; null = indefinite/banned
+  preferredOtpChannel OtpChannel? // remembered channel choice when both channels are enabled
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  folders           Folder[]
+  chatSessions      ChatSession[]
+  transactions      CreditTransaction[]
+  otpRecords        OtpRecord[]
+  notifications     Notification[]
+  paymentRecords    PaymentRecord[]
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  BANNED
+}
+
+// ─── OTP ────────────────────────────────────────────────
+model OtpRecord {
+  id           String     @id @default(uuid())
+  userId       String?
+  mobile       String
+  code         String
+  channel      OtpChannel @default(SMS) // which channel delivered this code
+  smsMessageId String? // `id` from SMS Web Service SendTokenSingle (SMS channel), for delivery-status lookup
+  expiresAt    DateTime
+  usedAt       DateTime?
+  createdAt    DateTime   @default(now())
+
+  user         User?      @relation(fields: [userId], references: [id])
+}
+
+enum OtpChannel {
+  SMS // SMS Web Service (پیامک)
+  BALE // Bale messenger (بله)
+}
+
+// ─── APP SETTING (admin-managed key/value config) ────────
+model AppSetting {
+  key         String   @id // e.g. "otp.channels"
+  value       Json // e.g. "SMS_ONLY" | "BALE_ONLY" | "BOTH" — seeded to "BOTH" at launch
+  updatedById String? // Admin who last changed it
+  updatedAt   DateTime @updatedAt
+}
+
+// ─── FOLDER ─────────────────────────────────────────────
+model Folder {
+  id           String        @id @default(uuid())
+  userId       String
+  name         String
+  coverUrl     String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id])
+  notes        Note[]
+  chatSessions ChatSession[]
+}
+
+// ─── NOTE ───────────────────────────────────────────────
+model Note {
+  id            String      @id @default(uuid())
+  folderId      String
+  userId        String
+  title         String
+  contentJson   Json // current (possibly user-edited) note body
+  originalContentJson Json? // the AI's first version; set once at generation, never changed by edits
+  isEdited      Boolean     @default(false) // true once the user edits the note (contentJson diverges from original)
+  recordedAt    DateTime // the note's date (date it refers to, e.g. the lecture day); user-editable, independent of createdAt (upload date)
+  status        NoteStatus  @default(PENDING)
+  failureReason String? // operator-facing reason when status = FAILED (not shown verbatim to user)
+  isIndexed     Boolean     @default(false) // RAG embeddings complete? note is readable while false; chat waits on true
+  creditCost    Int         @default(0) // billing units charged to the user
+  totalInputTokens  Int     @default(0) // Gemini input tokens summed across all AI steps
+  totalOutputTokens Int     @default(0) // Gemini output tokens summed across all AI steps
+  totalTokens       Int     @default(0) // input + output; denormalized for fast admin list display
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  folder        Folder           @relation(fields: [folderId], references: [id])
+  files         NoteFile[]
+  chunks        NoteChunk[]
+  tokenUsage    NoteTokenUsage[]
+}
+
+enum NoteStatus {
+  PENDING
+  PROCESSING
+  DONE
+  FAILED
+}
+
+// ─── NOTE FILE ──────────────────────────────────────────
+model NoteFile {
+  id          String      @id @default(uuid())
+  noteId      String
+  type        FileType
+  storageKey  String
+  mimeType    String
+  sizeBytes   Int
+  durationSec Int?
+  createdAt   DateTime    @default(now())
+
+  note        Note        @relation(fields: [noteId], references: [id])
+}
+
+enum FileType {
+  AUDIO
+  IMAGE
+}
+
+// ─── NOTE CHUNK (RAG Embeddings) ────────────────────────
+model NoteChunk {
+  id          String    @id @default(uuid())
+  noteId      String
+  chunkIndex  Int
+  content     String // plain text chunk (~500 tokens)
+  embedding   Unsupported("vector(1536)") // OpenAI text-embedding-3-small (1536-dim) via Metis; must match METIS_EMBEDDING_MODEL
+  createdAt   DateTime  @default(now())
+
+  note        Note      @relation(fields: [noteId], references: [id], onDelete: Cascade)
+
+  @@index([noteId])
+}
+
+// ─── NOTE TOKEN USAGE (per AI step) ─────────────────────
+// One row per Gemini call made while processing a note. Captured from each
+// response's usageMetadata by the worker. Used for cost monitoring and
+// surfaced in the backoffice (Section 5.9.2). Distinct from credits, which
+// are the billing units charged to the user (Note.creditCost).
+model NoteTokenUsage {
+  id            String   @id @default(uuid())
+  noteId        String
+  model         String // e.g. "gemini-2.5-pro" or the embedding model
+  inputTokens   Int      @default(0) // promptTokenCount
+  outputTokens  Int      @default(0) // candidatesTokenCount (0 for embeddings)
+  totalTokens   Int      @default(0) // totalTokenCount
+  createdAt     DateTime @default(now())
+
+  note          Note     @relation(fields: [noteId], references: [id], onDelete: Cascade)
+
+  @@index([noteId])
+}
+
+// ─── CHAT SESSION ───────────────────────────────────────
+model ChatSession {
+  id              String        @id @default(uuid())
+  userId          String
+  folderId        String
+  selectedNoteIds String[]
+  title           String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  user            User          @relation(fields: [userId], references: [id])
+  folder          Folder        @relation(fields: [folderId], references: [id])
+  messages        ChatMessage[]
+}
+
+// ─── CHAT MESSAGE ───────────────────────────────────────
+model ChatMessage {
+  id          String      @id @default(uuid())
+  sessionId   String
+  role        MessageRole
+  content     String
+  createdAt   DateTime    @default(now())
+
+  session     ChatSession @relation(fields: [sessionId], references: [id])
+}
+
+enum MessageRole {
+  USER
+  ASSISTANT
+}
+
+// ─── CREDIT TRANSACTION ─────────────────────────────────
+model CreditTransaction {
+  id             String          @id @default(uuid())
+  userId         String
+  type           TransactionType
+  amount         Int
+  description    String?
+  refId          String?
+  idempotencyKey String?         @unique // e.g. "usage:{noteId}" / "refund:{noteId}" — guarantees at most one charge and one refund per note
+  createdAt      DateTime        @default(now())
+
+  user           User            @relation(fields: [userId], references: [id])
+}
+
+enum TransactionType {
+  PURCHASE
+  USAGE
+  FREE_GRANT
+  REFUND
+  ADMIN_ADJUSTMENT // manual add/subtract by an admin (reason stored in description, admin id in refId)
+}
+
+// ─── PLAN (credit pack) ─────────────────────────────────
+model Plan {
+  id                String        @id @default(uuid())
+  name              String // e.g. "بسته ۱۰۰ اعتباری"
+  originalPriceIRT  Int // original/regular price in Toman (shown struck-through)
+  priceIRT          Int // discounted price actually charged (== originalPriceIRT when not discounted)
+  credits           Int // credits granted on purchase
+  isActive          Boolean       @default(true) // false hides it from the pricing page
+  createdAt         DateTime      @default(now())
+
+  paymentRecords    PaymentRecord[]
+}
+
+// ─── JOB RECORD ─────────────────────────────────────────
+model JobRecord {
+  id            String    @id @default(uuid())
+  noteId        String    @unique
+  status        JobStatus @default(QUEUED)
+  attempts      Int       @default(0)
+  error         String?
+  errorClass    String? // taxonomy class of the last error (see 6.4.1): transient | rate_limited | malformed | bad_request | auth | balance | oversized
+  metisFileUrls Json? // cached Metis storage URLs so a retry reuses the upload (idempotency, 6.4.2)
+  startedAt     DateTime?
+  finishedAt    DateTime?
+  createdAt     DateTime  @default(now())
+}
+
+enum JobStatus {
+  QUEUED
+  PROCESSING
+  DONE
+  FAILED
+}
+
+// ─── NOTIFICATION ────────────────────────────────────────
+model Notification {
+  id        String           @id @default(uuid())
+  userId    String
+  type      NotificationType
+  title     String
+  body      String
+  isRead    Boolean          @default(false)
+  metadata  Json? // e.g. { noteId, folderId, folderName }
+  createdAt DateTime         @default(now())
+
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead])
+  @@index([userId, createdAt(sort: Desc)])
+}
+
+enum NotificationType {
+  NOTE_DONE
+  NOTE_FAILED
+}
+
+// ─── PAYMENT RECORD ──────────────────────────────────────
+// Persists every gateway payment attempt. Referenced by the Zarinpal flow
+// (Section 12) and surfaced in the backoffice payments view (Section 5.9).
+model PaymentRecord {
+  id          String        @id @default(uuid())
+  userId      String
+  planId      String
+  amountIRT   Int
+  authority   String?       @unique // Zarinpal authority token
+  refId       String? // Zarinpal ref_id on success (financial reference)
+  cardPan     String? // masked card number from verify (e.g. 502229******5995)
+  status      PaymentStatus @default(PENDING)
+  createdAt   DateTime      @default(now())
+  paidAt      DateTime?
+
+  user        User          @relation(fields: [userId], references: [id])
+  plan        Plan          @relation(fields: [planId], references: [id])
+
+  @@index([status, createdAt(sort: Desc)])
+  @@index([userId])
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+}
+
+// ─── ADMIN ───────────────────────────────────────────────
+model Admin {
+  id            String      @id @default(uuid())
+  mobile        String      @unique // login identifier (phone) + where the step-2 OTP is sent
+  passwordHash  String
+  displayName   String
+  role          AdminRole   @default(SUPPORT)
+  isActive      Boolean     @default(true)
+  lastLoginAt   DateTime?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  auditLogs     AuditLog[]
+  otps          AdminOtp[]
+}
+
+enum AdminRole {
+  SUPER_ADMIN // everything, including managing other admins
+  ADMIN // users, plans, payments, analytics
+  SUPPORT // view users, adjust credits, impersonate; no plan/payment edits, no admin management
+}
+
+// ─── ADMIN OTP (login step 2) ────────────────────────────
+model AdminOtp {
+  id          String    @id @default(uuid())
+  adminId     String
+  challengeId String    @unique // ties the OTP to a specific step-1 challenge token
+  code        String
+  expiresAt   DateTime
+  usedAt      DateTime?
+  createdAt   DateTime  @default(now())
+
+  admin       Admin     @relation(fields: [adminId], references: [id])
+}
+
+// ─── AUDIT LOG ───────────────────────────────────────────
+// Immutable record of every state-changing admin action. Never updated or
+// deleted by application code.
+model AuditLog {
+  id          String      @id @default(uuid())
+  adminId     String
+  action      AuditAction
+  targetType  String // "USER" | "PLAN" | "ADMIN"
+  targetId    String?
+  metadata    Json? // e.g. { amount, reason, before, after }
+  ipAddress   String?
+  createdAt   DateTime    @default(now())
+
+  admin       Admin       @relation(fields: [adminId], references: [id])
+
+  @@index([adminId, createdAt(sort: Desc)])
+  @@index([targetType, targetId])
+}
+
+enum AuditAction {
+  ADMIN_LOGIN
+  USER_CREDIT_ADJUST
+  USER_SUSPEND
+  USER_BAN
+  USER_REACTIVATE
+  USER_IMPERSONATE_START
+  USER_IMPERSONATE_END
+  PLAN_CREATE
+  PLAN_UPDATE
+  PLAN_SET_ACTIVE
+  ADMIN_CREATE
+  ADMIN_UPDATE_ROLE
+  ADMIN_DEACTIVATE
+  OTP_CHANNEL_CONFIG
+}

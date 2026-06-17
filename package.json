@@ -1,0 +1,37 @@
+{
+  "name": "neviso",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@9.15.9",
+  "engines": {
+    "node": ">=18.17.0"
+  },
+  "scripts": {
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
+    "test": "pnpm -r test",
+    "test:e2e": "pnpm --filter @neviso/web test:e2e",
+    "db:generate": "pnpm --filter @neviso/db generate",
+    "db:migrate": "pnpm --filter @neviso/db migrate",
+    "db:seed": "pnpm --filter @neviso/db seed",
+    "check:no-cdn": "node scripts/check-no-cdn.mjs",
+    "prepare": "husky || true"
+  },
+  "pnpm": {
+    "overrides": {
+      "ioredis": "5.11.1"
+    }
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "husky": "^9.1.6",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4"
+  }
+}

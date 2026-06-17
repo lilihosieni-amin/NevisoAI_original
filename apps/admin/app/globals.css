@@ -1,0 +1,19 @@
+/* Shared design tokens (same look as the user app; desktop-first usage). */
+@import '@neviso/ui/tokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font: var(--font-vazir), system-ui, -apple-system, sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font);
+  color: var(--ink);
+  background: var(--paper);
+}
